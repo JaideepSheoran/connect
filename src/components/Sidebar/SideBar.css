@@ -1,0 +1,88 @@
+.sidebar-container {
+    background-color: black;
+    color: rgb(231, 233, 234);
+    width: 15%;
+    height: 100vh;
+    padding-left: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow-y: scroll;
+}
+
+.sidebar-box button {
+    cursor: pointer;
+    line-height: 50px;
+    background-color: rgb(53, 156, 241);
+    border-radius: 25px;
+    border: none;
+    font-size: 15px;
+    font-weight: bold;
+    color: white;
+    padding: 0px 20px 0px 20px;
+    margin-top: 10px;
+    width: 80%;
+}
+
+.sidebar-box button:hover {
+    background-color: rgb(53, 156, 200);
+}
+
+.add-or-logout {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 30px;
+    padding: 10px 10px 10px 10px;
+    width: 80%;
+    color: rgb(231, 233, 234);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    background-color: rgb(32, 35, 40);
+}
+
+.add-or-logout .profile-info {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+}
+
+.account-details .disp-name {
+    font-weight: bold;
+}
+
+.account-details .user-name {
+    color: gray;
+    font-size: 14px;
+}
+
+.profile-pic img {
+    max-height: 100px;
+    max-width: 100px;
+}
+
+.add-or-logout .threedots button img {
+    cursor: pointer;
+    filter: invert(1);
+    height: 20px;
+}
+
+.add-or-logout .threedots button {
+    background-color: transparent;
+    border: none;
+}
+
+.add-or-logout:hover {
+    background-color: rgb(15, 17, 19);
+}
+
+.add-or-logout .profile-pic {
+    /* height: 50px;
+    width: 50px; */
+    border-radius: 50%;
+    border: 1px solid white;
+    overflow: hidden;
+}
