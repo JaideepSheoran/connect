@@ -1,0 +1,195 @@
+.addpost-body {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.8);
+    flex-direction: column;
+}
+
+.addpost-cross {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: grey;
+    cursor: pointer;
+    font-weight: bolder;
+}
+
+.addpost-container {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid gray;
+    overflow: hidden;
+    border-radius: 20px;
+    color: white;
+}
+
+.addpost-title {
+    background-color: black;
+    padding: 10px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: row;
+    border-bottom: 1px solid gray;
+}
+
+.addpost-title button {
+    border: none;
+    background-color: transparent;
+    color: rgb(0, 136, 255);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.addpost-title p {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.addpost-title button {
+    cursor: pointer;
+}
+
+.addpost-post-container {
+    width: 100%;
+    background-color: black;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex: 1;
+}
+
+.addpost-post-container .post-details {
+    color: white;
+    flex: 0.5;
+    border-left: 1px solid gray;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 14px;
+    font-weight: bold;
+    height: 100%;
+}
+
+.post-selector {
+    flex: 0.5;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 100%;
+}
+
+.imagediv {
+    height: 70%;
+    width: 80%;
+    overflow: scroll;
+}
+
+.userinfo-box {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: baseline;
+}
+
+.post-caption textarea,
+.posttags textarea,
+.post-location input {
+    color: white;
+    outline: none;
+    padding: 5px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    border: none;
+    background-color: rgb(40, 40, 40);
+}
+
+.post-caption,
+.posttags,
+.post-location {
+    padding-left: 10px;
+    padding-bottom: 5px;
+}
+
+.post-caption p,
+.posttags p,
+.post-location p {
+    padding-bottom: 3px;
+}
+
+.post-selector input {
+    cursor: pointer;
+    word-wrap: break-word;
+}
+
+.userinfo-box {
+    padding: 7px;
+    /* border-bottom: 1px solid gray; */
+}
+
+.user-img {
+    height: 44px;
+    width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 10px;
+    background: radial-gradient(circle farthest-corner at 35% 90%, #fec564, transparent 50%), radial-gradient(circle farthest-corner at 0 140%, #fec564, transparent 50%), radial-gradient(ellipse farthest-corner at 0 -25%, #5258cf, transparent 50%), radial-gradient(ellipse farthest-corner at 20% -50%, #5258cf, transparent 50%), radial-gradient(ellipse farthest-corner at 100% 0, #893dc2, transparent 50%), radial-gradient(ellipse farthest-corner at 60% -20%, #893dc2, transparent 50%), radial-gradient(ellipse farthest-corner at 100% 100%, #d9317a, transparent), linear-gradient(#6559ca, #bc318f 30%, #e33f5f 50%, #f77638 70%, #fec66d 100%);
+}
+
+.user-img img {
+    width: 40px;
+    border-radius: 50%;
+}
+
+@media screen and (max-width: 700px) {
+    .addpost-container {
+        width: 95%;
+        font-size: 10px;
+        height: 80%;
+    }
+    .addpost-post-container {
+        display: block;
+        overflow: scroll;
+    }
+    .post-details {
+        border: none;
+        border-top: 1px solid gray;
+        width: 100%;
+        margin: 0px;
+    }
+    .imagediv {
+        width: 80%;
+        overflow: scroll;
+        flex: 1;
+    }
+    .post-selector {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+    .post-details {
+        flex: 0.5;
+        align-items: center;
+    }
+    .userinfo-box {
+        padding: 7px 0px 0px 0px;
+        /* border-bottom: 1px solid gray; */
+    }
+    .user-img {
+        margin-left: 7px;
+    }
+}

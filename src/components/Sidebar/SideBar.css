@@ -1,5 +1,5 @@
 .sidebar-container {
-    background-color: black;
+    background-color: #000000;
     color: rgb(231, 233, 234);
     width: 15%;
     height: 100vh;
@@ -8,6 +8,7 @@
     flex-direction: column;
     justify-content: space-between;
     overflow-y: scroll;
+    border-right: 1px solid gray;
 }
 
 .sidebar-box button {

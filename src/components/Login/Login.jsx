@@ -10,7 +10,7 @@ import imgSrc from "../../assets/logo-google.png";
 
 
 function Login() {
-    const userContxtData = useContext(userContext);
+    const {user, setUser} = useContext(userContext);
     const navigate = useNavigate();
     const handleLogin = (e) => {
         e.preventDefault();
@@ -24,11 +24,10 @@ function Login() {
             doLogin(DATA, () => {
                 console.log("login detail is saved to localstorage");
                 //redirect to user dashboard page
-                userContxtData.user = {
+                setUser({
                     ...DATA,
                     login : true
-                }
-                console.log(userContxtData);
+                });
                 navigate("/");
               });
         })

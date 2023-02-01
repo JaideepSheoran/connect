@@ -3,12 +3,14 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 import { getCurrentUserDetail, isLoggedIn } from '../auth'
 import userContext from './userContext'
+
 function UserProvider({ children }) {
 
     const [user, setUser] = useState({
         data: {},
         login: false
-    })
+    });
+    const value = { user, setUser };
 
     useEffect(() => {
         setUser({
@@ -21,9 +23,9 @@ function UserProvider({ children }) {
 
     return (
 
-        <userContext.Provider value={{ user, setUser }}>
-            {children}
-        </userContext.Provider>
+        <
+        userContext.Provider value = { value } > { children } <
+        /userContext.Provider>
 
     )
 }

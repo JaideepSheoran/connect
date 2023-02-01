@@ -1,0 +1,208 @@
+.post-main-box {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100vh;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5)
+}
+
+.post-container {
+    height: 90%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: black;
+}
+
+.left-post>button,
+.right-post>button {
+    background: none;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.left-post>button>img,
+.right-post>button>img {
+    height: 30px;
+    width: auto;
+}
+
+.left-post>button>img {
+    transform: rotate(180deg);
+}
+
+.post .img-box {
+    height: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    max-height: fit-content;
+}
+
+.post .img-box img {
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.post {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    height: 100%;
+    width: 100%;
+}
+
+.post-container .post .post-info {
+    background-color: black;
+    color: white;
+    height: 100%;
+    width: 30vw;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    justify-content: space-between;
+}
+
+.post-info .top {
+    padding: 5px 0px 5px 0px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 1px solid gray;
+}
+
+.top>div {
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: baseline;
+    padding-left: 10px;
+}
+
+.top>div>div>img {
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid gray;
+}
+
+.top div>button,
+.stats button {
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+}
+
+.top div>button>img,
+.stats button>img {
+    filter: invert(1);
+    max-height: 25px;
+}
+
+.post-info .post-details {
+    padding: 5px 0px 5px 0px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: baseline;
+}
+
+.post-info .post-details .pic {
+    padding-left: 10px;
+}
+
+.comments,
+.stats {
+    width: 100%;
+    border-top: 1px solid gray;
+    padding: 5px 0px 5px 0px;
+}
+
+.post-container .post .post-info .comments {
+    flex: 1;
+}
+
+.post-info .post-details>div>img {
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid gray;
+}
+
+.post-container .post .post-info .user-data .user span {
+    font-weight: 500;
+}
+
+.user {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.user .post-tags {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.user .post-tags span {
+    padding: 0px 3px 0px 0px;
+}
+
+.location {
+    font-size: 12px;
+    color: darkgray;
+}
+
+.user>span {
+    font-weight: 400;
+    font-size: 13px;
+}
+
+.user-data {
+    height: 100%;
+    padding-left: 10px;
+    flex-direction: column;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+}
+
+.propics {
+    display: inline-flex;
+}
+
+.propics>div {
+    height: 30px;
+    width: 20px;
+}
+
+.propics div>img {
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid black;
+}
+
+.liked-by {
+    display: inline-flex;
+    align-items: center;
+    height: 50px;
+    width: 100%;
+}
+
+.liked-by>div {
+    padding-left: 10px;
+}
+
+.likecount {
+    margin-left: 25px;
+    font-size: 14px;
+}
+
+.likecount>span {
+    font-weight: bold;
+}
