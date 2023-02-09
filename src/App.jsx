@@ -11,6 +11,13 @@ import SideBar from './components/Sidebar/SideBar';
 import AddPost from './components/Post/AddPost';
 import Post from './components/Post/Post';
 import Commentr from './components/Comments/Commentr';
+import Gallary from './components/Gallary/Gallary';
+import Head from './components/Head/Head';
+import Profile from './components/Profile/Profile';
+import Test from './components/Test/Test';
+import ThumbNail from './components/Test/ThumbNail';
+import Create from './components/Create/Create';
+
 
 function App() {
 	const [user, setUser] = useState({});
@@ -45,13 +52,14 @@ function App() {
 								<Route path="register" element={<Login />} />
 
 								<Route path='/' element={<PrivateRoute />}>
-									<Route path='/' element={<Commentr />} />
-									<Route path='/profile' element={<Home />} />
-									<Route path='/chats' element={<Home />} />
-									<Route path='/addpost' element={<AddPost />} />
-									<Route path='/explore' element={<Home />} />
-									<Route path='/saved' element={<Home />} />
+									<Route path='/' element={<Gallary />} />
+									<Route path='/profile' element={<Head />} />
+									<Route path='/chats' element={<ThumbNail />} />
+									<Route path='/addpost' element={<Create />} />
+									<Route path='/explore' element={<Gallary />} />
+									<Route path='/saved' element={<Test />} />
 									<Route path='/post/:pid' element={<Post />} />
+									<Route path='/user/:uid' element={<Profile />} />
 								</Route>
 							</Routes>
 						</div>

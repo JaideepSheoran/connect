@@ -6,13 +6,15 @@ import { doc, collection, updateDoc, arrayUnion, query, where, getDocs, addDoc }
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { onAuthStateChanged } from 'firebase/auth';
 import { authenticate } from '../../helper/firebase';
+import ThumbNail from '../Test/ThumbNail';
 
 function AddPost() {
 
     const navigate = useNavigate();
-    const [postImg, setPostImg] = useState();
+    const [postImg, setPostImg] = useState(null);
     const [tags, setTags] = useState('');
     const [addPostText, setaddPostText] = useState('Add Post');
+    const [flipPost, setFlipPost] = useState(true);
     const [post, setPost] = useState({
             uid: "",
             userUrl: "",
@@ -49,11 +51,6 @@ function AddPost() {
       return () => unsubscribe();
     }, []);
     
-
-    const handleCrossClick = (e) => {
-        e.preventDefault();
-        navigate('/');
-    }
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -112,7 +109,6 @@ function AddPost() {
 
     return (
         <div className='addpost-body'>
-            <div className="addpost-cross" onClick={handleCrossClick} >X</div>
             <div className="addpost-container">
                 <div className="addpost-title">
                     <p>Create New Post</p>
@@ -120,9 +116,11 @@ function AddPost() {
                 </div>
                 <div className="addpost-post-container">
                     <div className="post-selector">
-                        <input onChange={(e) => { setImagePreview(e.target.files[0]); setPostImg(e.target.files[0]); }} type="file" accept="image/png, image/gif, image/jpeg, video/*" name='url' />
+                        <input onChange={(e) => { setImagePreview(e.target.files[0]); setPostImg(e.target.files[0]); }} type="file" accept="image/png, image/gif, image/jpeg" name='url' />
                         <div className="imagediv">
-                            <img alt='User' id='preview' width="100%" />
+                            {
+                                postImg && <img alt='User' id='preview' width="100%" />
+                            }
                         </div>
                     </div>
                     <div className="post-details">

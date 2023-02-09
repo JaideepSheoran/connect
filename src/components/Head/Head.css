@@ -1,0 +1,86 @@
+.pro-head {
+    width: 100%;
+    background-color: rgb(18, 18, 18);
+    color: white;
+}
+
+.pro-details {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 20px 0px;
+}
+
+.pro-details .pro-pic img {
+    border-radius: 50%;
+}
+
+.pro-details .pro-data .pro-name {
+    display: inline-flex;
+    align-items: center;
+    font-size: 15px;
+    font-weight: bold;
+    flex: 1;
+    line-height: 40px;
+}
+
+.pro-details .pro-data .pro-name button {
+    border: none;
+    background-color: rgb(0, 149, 255);
+    color: white;
+    font-size: 13px;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+.pro-details .pro-data .pro-numdata {
+    margin: 10px 0px;
+}
+
+.pro-details .pro-data .pro-numdata span {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.pro-details .pro-data .pro-numdata span span {
+    font-size: 13px;
+    padding: 0px 20px 0px 5px;
+    font-weight: 500;
+}
+
+.pro-navbar {
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid gray;
+    border-top: 1px solid gray;
+}
+
+.pro-navbar button {
+    cursor: pointer;
+    margin-right: 30px;
+    display: inline-flex;
+    align-items: center;
+    border: none;
+    line-height: 40px;
+    background-color: transparent;
+    color: white;
+    font-weight: bold;
+    padding: 0px 5px;
+}
+
+.pro-navbar button img {
+    height: 20px;
+    filter: invert(1);
+}
+
+.pro-navbar button:focus {
+    border-top: 2px solid lightgray;
+    margin-top: -2px;
+    background-color: rgb(55, 55, 55);
+}
+
+.pro-navbar button:hover {
+    border-top: 2px solid lightgray;
+    margin-top: -2px;
+}

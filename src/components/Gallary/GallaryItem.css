@@ -1,0 +1,13 @@
+.gallary-item {
+    padding: 5px;
+    aspect-ratio: 1/1;
+    overflow: hidden;
+    cursor: pointer;
+    margin: 3px;
+}
+
+.gallary-item img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}

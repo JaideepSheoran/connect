@@ -5,33 +5,24 @@ import download from '../../assets/download.png';
 import menu from '../../assets/menu.svg';
 import hlike from '../../assets/hlike.png';
 import commentlogo from '../../assets/comment.png';
-import bookmark from '../../assets/bookmark.svg';
+import close from '../../assets/close.png';
+import liked from '../../assets/liked.png';
+import bookmark from '../../assets/bookmark.png';
 import { strorage, db } from '../../helper/firebase';
-import { collection, getDocs, query, where, doc, runTransaction, onSnapshot, getDoc, FieldValue, increment } from "firebase/firestore";
+import { collection, getDocs, query, where, doc, onSnapshot, getDoc, writeBatch } from "firebase/firestore";
 import Comments from "../Comments/Comments";
 import Commentr from "../Comments/Commentr";
 import { useParams, useNavigate } from "react-router-dom";
+import {useSelector, useDispatch} from "react-redux";
+import hourglass from '../../assets/hourglass.gif';
 
-/*
 
-POST {
-    docid,
-    user : userID,
-    url : 'URL',
-    type : 'img, video',
-    thumbnail : null,
-    caption : 'Just do it',
-    tags : [],
-    commnets : docID,
-    likesCnt : 0,
-    likedby : 'docid'
-}
+const Post = () => {
 
-*/
-
-const Post = ({ cnt, index, setIndex}) => {
-
-    const {pid}= useParams();
+    const { pid } = useParams();
+    const [isLiked, setIsLiked] = useState('');
+    const myPosts = useSelector((state) => state.loadPosts);
+    const dispatch = useDispatch();
     const nav = useNavigate();
     const userID = JSON.parse(window.localStorage.getItem('data')).id_;
     const [curr, setCurr] = useState(null);
@@ -39,90 +30,84 @@ const Post = ({ cnt, index, setIndex}) => {
     useEffect(() => {
         console.log(pid);
         const unsubscribe = onSnapshot(doc(db, 'posts', pid), (snapshot) => {
-            setCurr({...snapshot.data(), postID : snapshot.id});
-            console.log("Updated");
+            setCurr({ ...snapshot.data(), postID: snapshot.id });
         }, (err) => {
-            console.log("HERE",err);
+            console.log(err);
         });
 
-    
         return () => unsubscribe();
     }, []);
-    
+
+    useEffect(() => {
+        console.log(pid);
+        const q = query(collection(db, "likes"), where('uid', '==', userID), where('pid', '==', pid));
+        const unsubscribe = onSnapshot(q, (snapshot) => {
+            if(!snapshot.empty){
+                setIsLiked(snapshot.docs[0].id);
+            }else{
+                setIsLiked('');
+            }
+        }, (err) => {
+            console.log(err);
+        });
+
+        return () => unsubscribe();
+    }, []);
+
     const likePost = async (e) => {
         e.preventDefault();
-        const q = query(collection(db, "likes"), where('uid' , '==', userID), where('pid' , '==', curr.postID));
-        try {
-            const likerDoc = await getDocs(q);
-            if(likerDoc.docs.length != 0){
-                try {
-                    const docID = likerDoc.docs[0].id;
-                    console.log("DOC :", docID);
-                    const sfDocRef = doc(db, "posts", curr.postID);
-                    const likeRef = doc(db, "likes", docID);
-                    const newLikes = await runTransaction(db, async (transaction) => {
-                        const sfDoc = await transaction.get(sfDocRef);
-                        if (!sfDoc.exists()) {
-                            throw "Document does not exist!";
-                        }
-                        // const newLikes = sfDoc.data().likesCnt - 1;
-                        transaction.update(sfDocRef, { likesCnt: increment(-1) });
-                        transaction.delete(likeRef);
-                    });
-                } catch (e) {
-                    console.error(e);
-                }
-            }else{
-                try {
-                    const sfDocRef = doc(db, "posts", curr.postID);
-                    const newLike = doc(collection(db, "likes"));
-                    const newLikes = await runTransaction(db, async (transaction) => {
-                        const sfDoc = await transaction.get(sfDocRef);
-                        if (!sfDoc.exists()) {
-                            throw "Document does not exist!";
-                        }        
-                        const newLikes = sfDoc.data().likesCnt + 1;
-                        transaction.update(sfDocRef, { likesCnt: newLikes });
-                        transaction.set(newLike, {
-                            pid : curr.postID,
-                            uid : userID
-                        });
-                    });
-                } catch (e) {
-                    // This will be a "population is too big" error.
-                    console.error(e);
-                }
-            }
-        } catch (error) {
-            console.log(error);   
-        }
-       
-    }
-    
 
-    const getPosts = async (e) => {
+        if (isLiked) {
+            const batch = writeBatch(db);
+            const postRef = doc(db, 'posts', pid);
+            const likeRef = doc(db, 'likes', isLiked);
+            const likesOnDoc = await getDoc(postRef);
+            const likes = likesOnDoc.data().likesCnt;
+            batch.update(postRef, {likesCnt : likes - 1});
+            batch.delete(likeRef);
+            await batch.commit();
+        } else {
+            const batch = writeBatch(db);
+            const postRef = doc(db, 'posts', pid);
+            const likeRef = doc(collection(db, 'likes'));
+            const likesDoc = await getDoc(postRef);
+            const likes = likesDoc.data().likesCnt;
+            batch.update(postRef, {likesCnt : likes + 1});
+            batch.set(likeRef, {
+                uid : userID,
+                pid : pid
+            });
+            await batch.commit();
+        }
+
+    }
+
+    const nextPost = (e) => {
         e.preventDefault();
 
-        try {
-            const res = await getDoc(doc(db, 'posts', pid));
-            setCurr({...res.data(), postID : res.id});
-        } catch (error) {
-            console.log(error);
-        }
     }
 
+    const prevPost = (e) => {
+        e.preventDefault();
+    }
 
     return (
         curr != null
             ?
             <div className="post-main-box">
                 <div className="left-post">
-                    <button onClick={(e) => { e.preventDefault(); setIndex((index + 1) % cnt); }}><img src={next} alt="Back Button" /></button>
+                    <button onClick={nextPost}><img src={next} alt="Back Button" /></button>
                 </div>
                 <div className="post-container">
                     <div className="post">
                         <div className="img-box">
-                            <img src={curr.postUrl} alt="Post" />
+                            {
+                                curr.type === 'video'
+                                ?
+                                    <video autoPlay={true} loop={true} src={curr.postUrl} alt="Post" />
+                                :
+                                    <img src={curr.postUrl} alt="Post" />
+                            }
                         </div>
                         <div className="post-info">
                             <div className="top">
@@ -130,10 +115,10 @@ const Post = ({ cnt, index, setIndex}) => {
                                     <div className="pic"><img src={JSON.parse(window.localStorage.getItem('data')).photoURL} alt="Profile" /></div>
                                     <div className="user-data">
                                         <div className="user">{curr.username}</div>
-                                        <div className="location">NIT KKR</div>
+                                        <div className="location">{new Date(curr.timestamp).toDateString() + " " + curr.location}</div>
                                     </div>
                                 </div>
-                                <div><button onClick={() => {nav(-1)}}><img src={menu} alt="More" /></button></div>
+                                <div><button onClick={() => { nav(-1) }}><img src={close} alt="More" /></button></div>
                             </div>
                             <div className="post-details">
                                 <div className="pic"><img src={JSON.parse(window.localStorage.getItem('data')).photoURL} alt="Profile" /></div>
@@ -156,12 +141,20 @@ const Post = ({ cnt, index, setIndex}) => {
                             </div>
                             <div className="comments">
                                 {/* <Comments postID={curr.postID} /> */}
-                                {/* <Commentr /> */}
+                                <Commentr pid={curr.postID} />
                             </div>
                             <div className="stats">
-                                <button onClick={likePost}><img src={hlike} alt="Like" /></button>
+                                <button onClick={likePost}>
+                                    {
+                                        isLiked
+                                        ?
+                                        <img style={{filter : 'invert(0)'}} src={liked} alt="Like" />
+                                        :
+                                        <img src={hlike} alt="Like" />
+                                    }
+                                </button>
                                 <button><img src={commentlogo} alt="Comments" /></button>
-                                <button><img src={menu} alt="Saved" /></button>
+                                <button><img src={bookmark} alt="Saved" /></button>
                             </div>
                             <div className="liked-by">
                                 <div className="propics">
@@ -177,13 +170,14 @@ const Post = ({ cnt, index, setIndex}) => {
                     </div>
                 </div>
                 <div className="right-post">
-                    <button onClick={(e) => { e.preventDefault(); setIndex((index - 1 + cnt) % cnt); }}><img src={next} alt="Next Button" /></button>
+                    <button onClick={prevPost}><img src={next} alt="Next Button" /></button>
                 </div>
             </div>
-
             :
 
-            <> Loading ....</>
+            <div className='loading'>
+                <img src={hourglass} alt="" />
+            </div>
     )
 }
 

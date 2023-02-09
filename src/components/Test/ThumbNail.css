@@ -1,0 +1,104 @@
+.fromfile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: rgb(18, 18, 18);
+    width: 100%;
+    height: 100%;
+    padding: 20px 0px;
+}
+
+.fromfile .formgroup {
+    display: flex;
+    flex-direction: column;
+}
+
+.fromfile .preview-video {
+    display: flex;
+    justify-content: center;
+    width: 80%;
+}
+
+.fromfile .preview-video video {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.fromfile .formgroup input {
+    line-height: 25px;
+    border: none;
+    background-color: black;
+    outline: none;
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    margin: 2px;
+    border-radius: 5px;
+}
+
+.fromfile .formgroup button,
+.fromfile button {
+    cursor: pointer;
+    line-height: 25px;
+    border: none;
+    background-color: rgb(11, 165, 208);
+    outline: none;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 2px;
+    border-radius: 5px;
+}
+
+.fromfile .thumbnails-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.fromfile .thumbnails-container img {
+    cursor: pointer;
+    margin: 5px;
+    border-radius: 10px;
+    border: 3px solid white;
+}
+
+.fromfile .thumbnails-container img:hover {
+    border: 3px solid rgb(11, 165, 208);
+}
+
+.fromfile .preview-video video {
+    margin: 10px;
+    border-radius: 10px;
+    border: 3px solid white;
+}
+
+.reel-data p {
+    color: white;
+}
+
+.reel-data textarea,
+.reel-data input {
+    background-color: rgb(18, 18, 18);
+    outline: none;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.reel-data input {
+    width: 100%;
+    border: 1px solid gray;
+    line-height: 20px;
+}
+
+.reel-data button {
+    width: 100%;
+    margin-top: 30px;
+}
+
+.reel-data button:hover {
+    background-color: rgb(11, 165, 134);
+}

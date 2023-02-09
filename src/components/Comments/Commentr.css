@@ -1,4 +1,110 @@
 .post-comments {
     background-color: black;
     color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+}
+
+.user-comment {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: baseline;
+    min-height: 40px;
+}
+
+.user-comment .user-comment-data {
+    height: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: baseline;
+}
+
+.user-comment .user-comment-data .comment-content {
+    font-size: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: baseline;
+    align-items: baseline;
+}
+
+.post-comments ul {
+    list-style-type: none;
+    overflow-y: scroll;
+    overflow-x: scroll;
+}
+
+.post-comments>ul {
+    padding-left: 10px;
+    flex: 1;
+}
+
+.user-comment .dp img {
+    height: 25px;
+    border-radius: 50%;
+    padding-right: 5px;
+}
+
+.user-comment .user-comment-data .comment-content span {
+    color: rgb(142, 139, 139);
+    font-size: 14px;
+    padding-right: 10px;
+    font-weight: bold;
+}
+
+.user-comment .user-comment-data .comment-content span span {
+    font-weight: 500;
+    color: white;
+}
+
+.user-comment .user-comment-data .comment-time-reply {
+    color: gray;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.user-comment .user-comment-data .comment-time-reply span button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: rgb(3, 119, 177);
+    font-weight: bolder;
+    font-size: 12px;
+}
+
+.post-comments form {
+    width: 100%;
+    display: flex;
+    border-top: 1px solid gray;
+    align-items: center;
+}
+
+#mention-comment {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.post-comments form input {
+    outline: none;
+    line-height: 30px;
+    background-color: black;
+    color: white;
+    font-size: 14px;
+    border: none;
+    flex: 1;
+}
+
+.post-comments form button {
+    border: none;
+    line-height: 30px;
+    background-color: rgb(0, 179, 255);
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    padding: 0px 10px;
 }
