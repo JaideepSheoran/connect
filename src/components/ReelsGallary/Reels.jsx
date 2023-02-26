@@ -1,15 +1,15 @@
 import React, {useEffect} from 'react'
 import { Link } from 'react-router-dom'
-import './Gallary.css';
+import './Reels.css';
 import { collection, doc, getDocs, onSnapshot, query, where } from 'firebase/firestore';
 import { db } from '../../helper/firebase';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {setUserPosts} from "../../actions/index"
-import GallaryItem from './GallaryItem';
 import hourglass from '../../assets/hourglass.gif';
+import ReelItem from './ReelItem';
 
-const Gallary = () => {
+const Reels = () => {
 
 
     const userID = JSON.parse(window.localStorage.getItem('data')).id_;
@@ -18,7 +18,7 @@ const Gallary = () => {
     const dispatch = useDispatch();
 
     const getPosts = async () => {
-        const q = query(collection(db, 'posts'), where('uid', '==', userID));
+        const q = query(collection(db, 'posts'), where('uid', '==', userID), where('type', '==', 'video'));
 
         try {
             onSnapshot(q, (res) => {
@@ -52,7 +52,9 @@ const Gallary = () => {
 					<>
 						{
 							newPosts.map((post, i) => {
-								return <GallaryItem key={i} post={post}></GallaryItem>
+								if(post.type === 'video') {
+                                    return <ReelItem key={i} post={post}></ReelItem>
+                                }
 							})
 						}
 					</>
@@ -68,4 +70,4 @@ const Gallary = () => {
     )
 }
 
-export default Gallary
+export default Reels;

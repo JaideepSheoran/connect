@@ -82,21 +82,6 @@ const ThumbNail = () => {
     }, []);
     
 
-	// TESTING
-	const [mu, setMy] = useState(null);
-	const uploadtoStore = (e) => {
-		e.preventDefault();
-		const imageData = selectedThumbnail.split(',')[1];
-		const file = new Blob([Buffer.from(imageData, 'base64')], { type: 'image/jpeg' });
-		console.log(file);
-		uploadBytes(ref(storage, `tests/random4.jpeg`), file).then((res) => {
-			getDownloadURL(ref(storage, `tests/random4.jpeg`)).then((url) => {
-				console.log(url);
-				setMy(url);
-			})
-		}).catch(err => console.log(err));
-	}
-
 	const uploadReel = (e) => {
         e.preventDefault();
         try {
@@ -169,7 +154,8 @@ const ThumbNail = () => {
 					type={"file"}
 					onChange={(e) => {
 						if (e.target.files && e.target.files.length > 0 && e.target.files[0].type.includes("video")) {
-							setSelectedFile(e.target.files[0])
+							setSelectedFile(e.target.files[0]);
+							console.log(e.target.files);
 						}
 					}}
 					accept="video/*"

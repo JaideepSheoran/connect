@@ -52,35 +52,24 @@
 .pro-navbar {
     display: flex;
     justify-content: center;
-    border-bottom: 1px solid gray;
     border-top: 1px solid gray;
 }
 
-.pro-navbar button {
-    cursor: pointer;
-    margin-right: 30px;
+.pro-navbar .linkin {
     display: inline-flex;
     align-items: center;
-    border: none;
-    line-height: 40px;
-    background-color: transparent;
+    text-decoration: none;
     color: white;
     font-weight: bold;
-    padding: 0px 5px;
+    font-size: 13px;
+    padding: 5px 10px;
 }
 
-.pro-navbar button img {
-    height: 20px;
+.pro-navbar .linkin img {
     filter: invert(1);
+    height: 20px;
 }
 
-.pro-navbar button:focus {
-    border-top: 2px solid lightgray;
-    margin-top: -2px;
-    background-color: rgb(55, 55, 55);
-}
-
-.pro-navbar button:hover {
-    border-top: 2px solid lightgray;
-    margin-top: -2px;
+.pro-navbar .linkin:focus {
+    background-color: rgb(52, 52, 52);
 }

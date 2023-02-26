@@ -1,21 +1,25 @@
 import React from 'react';
 import './Head.css';
 import Gallary from '../Gallary/Gallary';
+import Reels from '../ReelsGallary/Reels'
 import connect from '../../assets/connect-logo.png';
 import tagged from '../../assets/hash.svg';
+import postsicon from '../../assets/posts.png';
 import reels from '../../assets/reels.png';
+import defaultUser from '../../assets/defaultUser.png';
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react';
 import { onSnapshot, doc, query, collection, where  } from 'firebase/firestore';
 import { db } from '../../helper/firebase';
 import { useState } from 'react';
+import { Link, Route, Routes, useNavigate } from 'react-router-dom';
 
-const Head = () => {
+const Head = ({match}) => {
 
     const userData = JSON.parse(window.localStorage.getItem('data'));
     const user = useSelector((state) => state.getUser);
     const [isFollowing, setFollowing] = useState(false);
-
+    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -36,7 +40,12 @@ const Head = () => {
             <div className='pro-head'>
                 <div className="pro-details">
                     <div className="pro-pic">
-                        {user.photoUrl != '' && <img src={user.photoUrl} alt="" />}
+                        {
+                            Object.keys(user).length > 1 ? 
+                            <img src={user.photoUrl} alt="" />
+                            :
+                            <img src={defaultUser} alt=""/>
+                        }
                     </div>
                     <div className='pro-data'>
                         <div className="pro-name">
@@ -52,13 +61,25 @@ const Head = () => {
                     </div>
                 </div>
                 <div className="pro-navbar">
-                    <button> <img src={reels} alt="" srcset="" /> <span>POSTS</span></button>
-                    <button> <img src={reels} alt="" srcset="" /> <span>REELS</span></button>
-                    <button> <img src={tagged} alt="" srcset="" /> <span>TAGGED</span></button>
+                        <Link className='linkin' to={`profile`}>
+                            <img src={postsicon} alt="" srcset="" />
+                            <div>POSTS</div>
+                        </Link>
+                        <Link className='linkin' to={`profile/reels`}>
+                            <img src={reels} alt="" srcset="" />
+                            <div>REELS</div>
+                        </Link>
+                        <Link className='linkin' to={`profile`}>
+                            <img src={tagged} alt="" srcset="" />
+                            <div>TAGGED</div>
+                        </Link>
                 </div>
             </div>
             <div className='pro-posts'>
-                <Gallary />
+                <Routes>
+                    <Route path={`profile`} element={<Gallary />}/>
+                    <Route path={`profile/reels`} element={<Reels />}/>
+                </Routes>
             </div>
         </div>
     )

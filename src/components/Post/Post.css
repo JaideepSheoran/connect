@@ -37,20 +37,39 @@
 
 .post .img-box {
     height: 100%;
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
-    max-height: fit-content;
 }
 
-.post .img-box img {
+.post .img-box .img-box-cont {
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    height: 100%;
+}
+
+.post .img-box .img-box-cont img {
     max-height: 100%;
     max-width: 100%;
 }
 
-.post .img-box video {
+.post .img-box .img-box-cont video {
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
     max-height: 100%;
     max-width: 100%;
+}
+
+#reel-audio-control {
+    height: 20px;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    display: inline;
+    position: absolute;
+    filter: invert(1);
 }
 
 .post {

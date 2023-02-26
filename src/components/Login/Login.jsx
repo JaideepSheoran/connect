@@ -1,5 +1,5 @@
-import React, { useState, useContext } from 'react';
-import {GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, sendPasswordResetEmail, sendEmailVerification, signInWithEmailAndPassword, signOut} from "firebase/auth";
+import React, { useState, useContext, useEffect } from 'react';
+import {GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, sendPasswordResetEmail, sendEmailVerification, signInWithEmailAndPassword, signOut, signInWithEmailLink, sendSignInLinkToEmail} from "firebase/auth";
 import './Login.css';
 import {authenticate, db} from '../../helper/firebase';
 import {Link, useNavigate } from 'react-router-dom';
@@ -10,7 +10,6 @@ import imgSrc from "../../assets/logo-google.png";
 import connect from '../../assets/connect.png'
 import { useDispatch } from 'react-redux';
 import { doc, getDoc } from 'firebase/firestore';
-import { async } from '@firebase/util';
 
 function Login() {
     const {user, setUser} = useContext(userContext);
@@ -52,22 +51,46 @@ function Login() {
         })
     }
 
+    const handleEmailPassRegister = (e) => {
+        e.preventDefault();
+
+        // createUserWithEmailAndPassword(authenticate, email, password).then((creds) => {
+        //     sendEmailVerification(creds.user).then(() => {
+        //         window.prompt(`Email sent to ${email}.`);
+        //     }).catch(err => console.log(err)); 
+        // }).catch(err => {
+        //     window.alert(err);
+        // });
+    }
+
     const handleEmailPassLogin = (e) => {
         e.preventDefault();
-        createUserWithEmailAndPassword(authenticate, email, password).then((creds) => {
-            sendEmailVerification(creds.user).then(() => {
-                window.prompt(`Email sent to ${email}.`);
-            }).catch(err => console.log(err)); 
+        signInWithEmailAndPassword(authenticate, email, password).then((creds) => {
+            const DATA = {
+                ...creds.user.providerData[0],
+                id_ : creds.user.uid
+            }
+            doLogin(DATA, () => {
+                console.log("login detail is saved to localstorage");
+
+                getDoc(doc(db, 'users', creds.user.uid)).then((rdata) => {
+                    dispatch({
+                        type : 'SET_USER',
+                        payload : {...rdata.data(), id : creds.user.uid}
+                    })
+                }).catch(err => console.log(err))
+
+
+                //redirect to user dashboard page
+                setUser({
+                    ...DATA,
+                    login : true
+                });
+                navigate("/");
+              }); 
         }).catch(err => {
             window.alert(err);
         });
-    }
-
-    const handleEmailPassLogins = (e) => {
-        e.preventDefault();
-        signOut(authenticate).then(() => {
-            window.alert(`Out`);
-        }).catch(err => console.log(err));
     }
 
     return (
@@ -77,7 +100,7 @@ function Login() {
                     <img src={connect} alt="Logo" />
                 </div>
                 <div className='login-ep'>
-                    <form onSubmit={handleEmailPassLogins}>
+                    <form onSubmit={handleEmailPassLogin}>
                         <input 
                             onChange={(e) => {
                                 setEmail(e.target.value);

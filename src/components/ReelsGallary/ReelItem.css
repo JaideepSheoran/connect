@@ -1,0 +1,13 @@
+.reels-item {
+    padding: 5px;
+    aspect-ratio: 9/16;
+    overflow: hidden;
+    cursor: pointer;
+    margin: 3px;
+}
+
+.reels-item img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}

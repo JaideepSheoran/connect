@@ -14,7 +14,6 @@ function AddPost() {
     const [postImg, setPostImg] = useState(null);
     const [tags, setTags] = useState('');
     const [addPostText, setaddPostText] = useState('Add Post');
-    const [flipPost, setFlipPost] = useState(true);
     const [post, setPost] = useState({
             uid: "",
             userUrl: "",
@@ -81,7 +80,7 @@ function AddPost() {
                 setPost(tempPost);
                 console.log(post);
                 const Time = Date.now();
-                uploadBytes(ref(storage, `${post.uid}/${post.uid}-${Time}`), postImg).then((snap) => {
+                uploadBytes(ref(storage, `${post.uid}/${post.uid}-${Time}`), postImg).then(() => {
                     getDownloadURL(ref(storage, `${post.uid}/${post.uid}-${Time}`)).then((url) => {
                         post.postUrl = url;
                         post.timestamp = Date.now();
@@ -116,11 +115,16 @@ function AddPost() {
                 </div>
                 <div className="addpost-post-container">
                     <div className="post-selector">
-                        <input onChange={(e) => { setImagePreview(e.target.files[0]); setPostImg(e.target.files[0]); }} type="file" accept="image/png, image/gif, image/jpeg" name='url' />
+                        <input 
+                            type={"file"} 
+                            accept="image/*" 
+                            onChange={(e) => { 
+                                setPostImg(e.target.files[0]);
+                                setImagePreview(e.target.files[0]);
+                            }} 
+                        />
                         <div className="imagediv">
-                            {
-                                postImg && <img alt='User' id='preview' width="100%" />
-                            }
+                            <img alt='User' id='preview' width="100%" />
                         </div>
                     </div>
                     <div className="post-details">

@@ -15,6 +15,8 @@ import Commentr from "../Comments/Commentr";
 import { useParams, useNavigate } from "react-router-dom";
 import {useSelector, useDispatch} from "react-redux";
 import hourglass from '../../assets/hourglass.gif';
+import audioon from '../../assets/audioon.png';
+import audiooff from '../../assets/audiooff.png';
 
 
 const Post = () => {
@@ -26,6 +28,7 @@ const Post = () => {
     const nav = useNavigate();
     const userID = JSON.parse(window.localStorage.getItem('data')).id_;
     const [curr, setCurr] = useState(null);
+    const [volume, setVolume] = useState(true);
 
     useEffect(() => {
         console.log(pid);
@@ -82,6 +85,27 @@ const Post = () => {
 
     }
 
+    const playPause = (e) => {
+        e.preventDefault();
+        var player = document.getElementById("reelVideo");
+        if(player.paused){
+            player.play();
+        }else{
+            player.pause();
+        }
+    }
+
+    const volumeOnOff = (e) => {
+        e.preventDefault();
+        var player = document.getElementById("reelVideo");
+        if(player.volume == 1){
+            player.volume = 0;
+        }else{
+            player.volume = 1;
+        }
+        setVolume(!volume);
+    }
+
     const nextPost = (e) => {
         e.preventDefault();
 
@@ -101,13 +125,18 @@ const Post = () => {
                 <div className="post-container">
                     <div className="post">
                         <div className="img-box">
-                            {
-                                curr.type === 'video'
-                                ?
-                                    <video autoPlay={true} loop={true} src={curr.postUrl} alt="Post" />
-                                :
-                                    <img src={curr.postUrl} alt="Post" />
-                            }
+                            <div className="img-box-cont">
+                                {
+                                    curr.type === 'video'
+                                    ?
+                                        <>
+                                            <video id="reelVideo" onClick={playPause} autoPlay={true} loop={true} src={curr.postUrl} alt="Post" />
+                                            <img onClick={volumeOnOff} src={volume ? audioon : audiooff} alt="Audio Button" id="reel-audio-control" />
+                                        </>
+                                    :
+                                        <img src={curr.postUrl} alt="Post" />
+                                }
+                            </div>
                         </div>
                         <div className="post-info">
                             <div className="top">

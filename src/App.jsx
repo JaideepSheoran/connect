@@ -53,7 +53,7 @@ function App() {
 
 								<Route path='/' element={<PrivateRoute />}>
 									<Route path='/' element={<Gallary />} />
-									<Route path='/profile' element={<Head />} />
+									<Route path='/profile/*' element={<Head />} />
 									<Route path='/chats' element={<ThumbNail />} />
 									<Route path='/addpost' element={<Create />} />
 									<Route path='/explore' element={<Gallary />} />

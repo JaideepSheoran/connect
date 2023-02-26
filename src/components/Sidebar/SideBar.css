@@ -1,15 +1,17 @@
 .sidebar-container {
     background-color: #000000;
     color: rgb(231, 233, 234);
-    width: fit-content;
-    min-height: 100%;
-    max-height: 100%;
-    padding: 10px;
+    width: 20%;
+    min-height: 100vh;
+    max-height: 100vh;
+    /* padding: 10px; */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    overflow-y: scroll;
     border-right: 1px solid gray;
+    position: fixed;
+    top: 0;
+    left: 0;
 }
 
 .sidebar-box button {
@@ -40,10 +42,9 @@
 }
 
 .add-or-logout {
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin: 10px auto;
     border-radius: 30px;
-    padding: 10px 10px 10px 10px;
+    padding: 10px;
     width: 80%;
     color: rgb(231, 233, 234);
     display: flex;
@@ -68,9 +69,10 @@
 .account-details .user-name {
     color: gray;
     font-size: 14px;
+    overflow-wrap: anywhere;
 }
 
-.profile-pic img {
+.add-or-logout .ppic {
     max-height: 100px;
     max-width: 100px;
 }
@@ -90,10 +92,11 @@
     background-color: rgb(15, 17, 19);
 }
 
-.add-or-logout .profile-pic {
+.add-or-logout .ppic {
     border-radius: 50%;
     border: 1px solid white;
     overflow: hidden;
+    width: 60%;
 }
 
 

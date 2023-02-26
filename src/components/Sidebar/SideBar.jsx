@@ -10,6 +10,7 @@ import profile from '../../assets/profile.svg';
 import reels from '../../assets/reels.png';
 import connect from '../../assets/connect-logo.png';
 import SideBarItem from './SideBarItem';
+import defaultUser from '../../assets/defaultUser.png';
 import { Link } from 'react-router-dom';
 import logout from '../../assets/logout.png';
 import { signOut, onAuthStateChanged } from 'firebase/auth';
@@ -25,6 +26,7 @@ function SideBar() {
 		const removeListner = onAuthStateChanged(authenticate, (user) => {
 			if (!user) navigate('/login');
 			else {
+				console.log(user);
 				setUserData({ ...user });
 			}
 		});
@@ -67,13 +69,11 @@ function SideBar() {
 				{
 					userData &&
 					<>
-						<div className="profile-pic">
-							<img src={userData.photoURL} alt="" />
-						</div>
+						<img className='ppic' src={userData.photoURL ? userData.photoURL : defaultUser } alt="" />
 						<div className="profile-info">
 							<div className="account-details">
 								<div className='disp-name'>{userData.displayName}</div>
-								<div className='user-name'>@Jaideep_shrn19</div>
+								<div className='user-name'>{userData.email}</div>
 							</div>
 							<div className="threedots">
 								<button onClick={SignOut}><img src={logout} alt="" /></button>
