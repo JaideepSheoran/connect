@@ -6,27 +6,12 @@ function SideBarItem({ logoSrc, logoType }) {
         <div className='sidebar-item-box'>
             <div className="sidebar-item">
                 <div className="sidebar-icon">
-                    {
-                        logoType === ""
-                        ?
-                        <img style={{filter : 'none', height : '70px'}} src={logoSrc} alt={logoType} />
-                        :
-                        <img src={logoSrc} alt={logoType} />
-                    }
+                    <img src={logoSrc} alt={logoType} />
                 </div>
-                {
-                    logoType !== ""
-                        
-                    ?
-                        <>
-                            <div className="sidebar-name">
-                                <span>{logoType}</span>
-                            </div>
-                        </>
-                    :
-                        <>
-                        </>
-                }
+                <div className="sidebar-name">
+                    <span>{logoType}</span>
+                </div>
+                
             </div>
         </div>
     )

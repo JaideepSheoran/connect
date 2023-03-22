@@ -1,0 +1,13 @@
+.create-content {
+    height: 100vh;
+}
+
+.create-content>button {
+    cursor: pointer;
+    border: none;
+    background-color: rgb(54, 196, 243);
+    line-height: 30px;
+    font-weight: bold;
+    border-radius: 5px;
+    width: 100%;
+}

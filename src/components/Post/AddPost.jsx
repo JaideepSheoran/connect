@@ -7,17 +7,17 @@ import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { onAuthStateChanged } from 'firebase/auth';
 import { authenticate } from '../../helper/firebase';
 import ThumbNail from '../Test/ThumbNail';
+import { UserAuth } from '../../context/AuthContext';
 
 function AddPost() {
 
     const navigate = useNavigate();
+    const { user } = UserAuth();
     const [postImg, setPostImg] = useState(null);
     const [tags, setTags] = useState('');
     const [addPostText, setaddPostText] = useState('Add Post');
     const [post, setPost] = useState({
             uid: "",
-            userUrl: "",
-            username: "",
             caption: "",
             postUrl: "",
             location: "",
@@ -38,9 +38,7 @@ function AddPost() {
             else {
                 setPost({
                     ...post,
-                    ['uid'] : currentUser.uid,
-                    ['username'] : currentUser.displayName,
-                    ['userUrl'] : currentUser.photoURL
+                    ['uid'] : currentUser.uid
                 });
                 console.log(post);
             }
@@ -130,10 +128,10 @@ function AddPost() {
                     <div className="post-details">
                         <div className="userinfo-box">
                             <div className="user-img">
-                                <img src={post.userUrl} alt='Nothing' className='user-img-img' />
+                                <img src={user.photoURL} alt='Nothing' className='user-img-img' />
                             </div>
                             <div className="username">
-                                {post.username}
+                                {user.email}
                             </div>
                         </div>
                         <div className="post-caption">

@@ -61,7 +61,7 @@ function SideBar() {
 				<Link style={{ textDecoration: 'none', color: 'white' }} to="/notification"><SideBarItem logoSrc={notification} logoType="Notifications" /></Link>
 				<Link style={{ textDecoration: 'none', color: 'white' }} to="/chats"><SideBarItem logoSrc={message} logoType="Messages" /></Link>
 				<Link style={{ textDecoration: 'none', color: 'white' }} to="/saved"><SideBarItem logoSrc={bookmark} logoType="Saved" /></Link>
-				<Link style={{ textDecoration: 'none', color: 'white' }} to="/profile"><SideBarItem logoSrc={reels} logoType="Reels" /></Link>
+				<Link style={{ textDecoration: 'none', color: 'white' }} to="/reels"><SideBarItem logoSrc={reels} logoType="Reels" /></Link>
 				<Link style={{ textDecoration: 'none', color: 'white' }} to="/addpost"><SideBarItem logoSrc={plus} logoType="Create" /></Link>
 				<Link style={{ textDecoration: 'none', color: 'white' }} to="/profile"><SideBarItem logoSrc={profile} logoType="Profile" /></Link>
 			</div>

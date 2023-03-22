@@ -49,8 +49,8 @@ const Head = ({match}) => {
                     </div>
                     <div className='pro-data'>
                         <div className="pro-name">
-                            <span>jaideepsinghsheoran</span>
-                            <button>Follow</button>
+                            <span>{user.username}</span>
+                            <button>Edit Profile</button>
                         </div>
                         <div className="pro-numdata">
                             <span className='pro-postcnt'>10<span>Posts</span></span>
@@ -61,15 +61,15 @@ const Head = ({match}) => {
                     </div>
                 </div>
                 <div className="pro-navbar">
-                        <Link className='linkin' to={`profile`}>
+                        <Link className='linkin' to={``}>
                             <img src={postsicon} alt="" srcset="" />
                             <div>POSTS</div>
                         </Link>
-                        <Link className='linkin' to={`profile/reels`}>
+                        <Link className='linkin' to={`reels`}>
                             <img src={reels} alt="" srcset="" />
                             <div>REELS</div>
                         </Link>
-                        <Link className='linkin' to={`profile`}>
+                        <Link className='linkin' to={`tagged`}>
                             <img src={tagged} alt="" srcset="" />
                             <div>TAGGED</div>
                         </Link>
@@ -77,8 +77,8 @@ const Head = ({match}) => {
             </div>
             <div className='pro-posts'>
                 <Routes>
-                    <Route path={`profile`} element={<Gallary />}/>
-                    <Route path={`profile/reels`} element={<Reels />}/>
+                    <Route path={``} element={<Gallary />}/>
+                    <Route path={`reels`} element={<Reels />}/>
                 </Routes>
             </div>
         </div>

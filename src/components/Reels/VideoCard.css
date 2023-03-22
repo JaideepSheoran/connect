@@ -1,0 +1,142 @@
+.videoCard {
+    width: 100%;
+    height: 100%;
+    scroll-snap-align: start;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: baseline;
+    background-color: black;
+}
+
+.reelBox {
+    width: 90%;
+    height: 100%;
+    background-color: black;
+}
+
+.reelStats {
+    width: 10%;
+    background-color: black;
+    height: 100%;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+}
+
+.reelStats>* {
+    padding: 10px 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.reelStats img {
+    filter: invert(1);
+    height: 30px;
+}
+
+.reelStats span {
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.reelBox>img,
+.reelBox>video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.audioControler {
+    position: absolute;
+    width: 90%;
+}
+
+.reelFooter {
+    position: absolute;
+    bottom: 0;
+    width: 90%;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    justify-content: space-between;
+}
+
+.reelFooter>* {
+    font-size: 14px;
+    padding: 10px;
+    font-weight: 500;
+}
+
+.reelFooter p {
+    margin: 0;
+}
+
+.reelFooter>p {
+    background-color: rgba(123, 123, 123, 0.5);
+    border-radius: 10px;
+    margin: 0px 10px;
+}
+
+.reelFooter_>span {
+    font-size: 15px;
+    font-weight: 500;
+    padding: 0px 5px;
+}
+
+.reelFooter_ img {
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid rgba(170, 170, 170);
+}
+
+.reelFooter_ {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: baseline;
+}
+
+.reelFooter>p {
+    word-wrap: break-word;
+}
+
+.music_name {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+}
+
+.music_name>* {
+    margin: 0px 4px;
+}
+
+.music_name>span {
+    line-height: 16px;
+    border: 1px solid rgba(170, 170, 170);
+    border-radius: 8px;
+    padding: 0px 5px;
+    background-color: rgba(123, 123, 123, 0.5);
+}
+
+.music_name>img {
+    filter: invert(1);
+    height: 15px;
+}
+
+.audioControler>img {
+    filter: invert(1);
+    cursor: pointer;
+    height: 20px;
+}
+
+.audioControler>* {
+    padding: 10px;
+}

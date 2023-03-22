@@ -9,7 +9,7 @@ import close from '../../assets/close.png';
 import liked from '../../assets/liked.png';
 import bookmark from '../../assets/bookmark.png';
 import { strorage, db } from '../../helper/firebase';
-import { collection, getDocs, query, where, doc, onSnapshot, getDoc, writeBatch } from "firebase/firestore";
+import { collection, getDocs, query, where, doc, onSnapshot, getDoc, writeBatch, increment } from "firebase/firestore";
 import Comments from "../Comments/Comments";
 import Commentr from "../Comments/Commentr";
 import { useParams, useNavigate } from "react-router-dom";
@@ -62,21 +62,13 @@ const Post = () => {
 
         if (isLiked) {
             const batch = writeBatch(db);
-            const postRef = doc(db, 'posts', pid);
-            const likeRef = doc(db, 'likes', isLiked);
-            const likesOnDoc = await getDoc(postRef);
-            const likes = likesOnDoc.data().likesCnt;
-            batch.update(postRef, {likesCnt : likes - 1});
-            batch.delete(likeRef);
+            batch.update(doc(db, 'posts', pid), {likesCnt : increment(-1)});
+            batch.delete(doc(db, 'likes', isLiked));
             await batch.commit();
         } else {
             const batch = writeBatch(db);
-            const postRef = doc(db, 'posts', pid);
-            const likeRef = doc(collection(db, 'likes'));
-            const likesDoc = await getDoc(postRef);
-            const likes = likesDoc.data().likesCnt;
-            batch.update(postRef, {likesCnt : likes + 1});
-            batch.set(likeRef, {
+            batch.update(doc(db, 'posts', pid), {likesCnt : increment(1)});
+            batch.set(doc(collection(db, 'likes')), {
                 uid : userID,
                 pid : pid
             });

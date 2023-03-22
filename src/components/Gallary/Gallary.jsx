@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import { Link } from 'react-router-dom'
 import './Gallary.css';
 import { collection, doc, getDocs, onSnapshot, query, where } from 'firebase/firestore';
@@ -15,6 +15,7 @@ const Gallary = () => {
     const userID = JSON.parse(window.localStorage.getItem('data')).id_;
     const nav = useNavigate();
     const newPosts = useSelector((state) => state.loadPosts);
+    const [isLoaded, setLoaded] = useState(false);
     const dispatch = useDispatch();
 
     const getPosts = async () => {
@@ -26,8 +27,8 @@ const Gallary = () => {
                 res.docs.forEach((doc) => {
                     list.push({id : doc.id, ...doc.data()});
                 });
-                dispatch(setUserPosts(list))
-                console.log(newPosts);
+                dispatch(setUserPosts(list));
+                setLoaded(true);
             }, (err) => {
                 window.alert(err);
             });
@@ -58,9 +59,15 @@ const Gallary = () => {
 					</>
 					:
 					<>
-						<div className='loading'>
-                            <img src={hourglass} alt="" />
-                        </div>
+						{
+                            isLoaded && newPosts.length == 0 
+                            ?
+                                <h1>NO POSTS</h1>
+                            :
+                                <div className='loading'>
+                                    <img src={hourglass} alt="" />
+                                </div>
+                        }
 					</>
 			}
             </div>

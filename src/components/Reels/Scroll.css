@@ -1,0 +1,21 @@
+.scrollReels {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.reelSection {
+    margin: auto;
+    background-color: white;
+    width: 450px;
+    height: 90vh;
+    border-radius: 5px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+}
+
+.reelSection::-webkit-scrollbar {
+    display: none;
+}

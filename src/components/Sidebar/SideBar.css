@@ -103,3 +103,9 @@
 /* .add-or-logout {
     display: none;
 } */
+
+@media (max-width: 800px) {
+    .sidebar-container {
+        width: 50px;
+    }
+}

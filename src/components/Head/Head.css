@@ -1,6 +1,6 @@
 .pro-head {
     width: 100%;
-    background-color: rgb(18, 18, 18);
+    background-color: black;
     color: white;
 }
 
@@ -12,6 +12,7 @@
 }
 
 .pro-details .pro-pic img {
+    height: 150px;
     border-radius: 50%;
 }
 

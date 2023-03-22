@@ -15,7 +15,7 @@ const Create = () => {
 
     return (
         <div className='create-content'>
-            <button onClick={toggleContent}>Change Content</button>
+            <button onClick={toggleContent}>Switch Content</button>
             <div className='content-container'>
                 {
                     switchType

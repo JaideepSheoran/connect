@@ -1,0 +1,39 @@
+.explore {
+    color: white;
+    font-size: 30px;
+    width: 80%;
+    margin: auto;
+    padding: 10px;
+}
+
+.explore-type-one {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 20px;
+    padding: 12px;
+    aspect-ratio: 3/2;
+}
+
+.post-box {
+    background-color: black;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    overflow: hidden;
+}
+
+.reel-right {
+    grid-row: 1 / -1;
+    grid-column: 3 / 4;
+}
+
+.post-box img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.reel-left {
+    grid-row: 1 / -1;
+}

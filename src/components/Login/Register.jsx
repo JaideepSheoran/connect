@@ -1,37 +1,45 @@
 import React, { useState, useContext, useEffect } from 'react';
-import 
-{ 
-    GoogleAuthProvider, 
-    signInWithPopup, 
-    signInWithEmailAndPassword, 
-    signOut, 
-    signInWithEmailLink, 
-    sendSignInLinkToEmail, 
-    isSignInWithEmailLink, 
-    EmailAuthProvider, 
-    getAuth, 
-    linkWithCredential, 
-    updatePassword,
-}   from "firebase/auth";
-
+import { GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword, signOut, signInWithEmailLink, sendSignInLinkToEmail, isSignInWithEmailLink, EmailAuthProvider, getAuth, linkWithCredential, updatePassword, createUserWithEmailAndPassword } from "firebase/auth";
 import './Login.css';
 import { authenticate, db } from '../../helper/firebase';
 import { Link, useNavigate } from 'react-router-dom';
-import { doLogin } from '../../auth';
+import {doLogin} from '../../auth';
 import './Login.css';
 import imgSrc from "../../assets/logo-google.png";
 import connect from '../../assets/connect.png'
 import { useDispatch } from 'react-redux';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc, query, collection, where, onSnapshot, getDocs } from 'firebase/firestore';
 import { UserAuth } from '../../context/AuthContext';
 
-function Login() {
+
+function Register() {
     const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
+    const [existsUsername, setExists] = useState(false);
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const {signIn} = UserAuth();
+    const {createUser} = UserAuth();
+
+    useEffect(() => {
+
+        if(username.length < 6) {
+            setExists(true);
+            return;
+        }
+
+        const q = query(collection(db, 'users'), where('username', '==', username));
     
+        getDocs(q).then((snapshot) => {
+            if(snapshot.docs.length != 0){
+                setExists(true);
+            }else{
+                setExists(false);
+            }
+        }).catch(err => console.log(err))
+        
+    }, [username]);
+
     useEffect(() => {
         if (isSignInWithEmailLink(authenticate, window.location.href)) {
             let email = window.localStorage.getItem('emailForSignIn');
@@ -97,7 +105,7 @@ function Login() {
                     }).catch(err => console.log(err))
 
 
-                    // //redirect to user dashboard page
+                    //redirect to user dashboard page
                     // setUser({
                     //     ...DATA,
                     //     login: true
@@ -126,34 +134,12 @@ function Login() {
     }
 
     const handleEmailPassLogin = (e) => {
+        if(!email || !password || existsUsername) {
+            alert('Empty Fields or Username Already Present');
+            return;
+        }
         e.preventDefault();
-        signIn(email, password);
-        // signInWithEmailAndPassword(authenticate, email, password).then((creds) => {
-        //     const DATA = {
-        //         ...creds.user.providerData[0],
-        //         id_: creds.user.uid
-        //     }
-        //     doLogin(DATA, () => {
-        //         console.log("login detail is saved to localstorage");
-
-        //         getDoc(doc(db, 'users', creds.user.uid)).then((rdata) => {
-        //             dispatch({
-        //                 type: 'SET_USER',
-        //                 payload: { ...rdata.data(), id: creds.user.uid }
-        //             })
-        //         }).catch(err => console.log(err))
-
-
-        //         //redirect to user dashboard page
-        //         setUser({
-        //             ...DATA,
-        //             login: true
-        //         });
-        //         navigate("/");
-        //     });
-        // }).catch(err => {
-        //     window.alert(err);
-        // });
+        createUser(email, password, username);
     }
 
     return (
@@ -164,18 +150,33 @@ function Login() {
                 </div>
                 <div className='login-ep'>
                     <form onSubmit={handleEmailPassLogin}>
+
                         <input
                             onChange={(e) => {
-                                setEmail(e.target.value);
+                                setEmail(e.target.value.toLowerCase());
                             }}
                             className='login-cred'
                             value={email}
                             type="email"
                             placeholder='Email' />
 
+
                         <input
                             onChange={(e) => {
-                                setPassword(e.target.value);
+                                setUsername(e.target.value.toLowerCase());
+                            }}
+                            style={{
+                                border : `2px solid ${existsUsername ? '#f50f0f' : '#16f50f'}`
+                            }}
+                            className='login-cred'
+                            value={username}
+                            type="text"
+                            placeholder='Username' />          
+
+
+                        <input
+                            onChange={(e) => {
+                                setPassword(e.target.value.toLowerCase());
                             }}
                             className='login-cred'
                             type="password"
@@ -185,7 +186,7 @@ function Login() {
                         <button
                             className='login-btn'
                             type='submit'
-                        >Log in</button>
+                        >Create Account</button>
                     </form>
                 </div>
                 <div className='log-divider'><span>OR</span></div>
@@ -199,4 +200,4 @@ function Login() {
     )
 }
 
-export default Login
+export default Register

@@ -23,8 +23,6 @@ const ThumbNail = () => {
 	const [tags, setTags] = useState('');
 	const [reel, setReel] = useState({
 		uid: "",
-		userUrl: "",
-		username: "",
 		caption: "",
 		postUrl: "",
 		location: "",
@@ -69,9 +67,7 @@ const ThumbNail = () => {
             else {
                 setReel({
                     ...reel,
-                    ['uid'] : currentUser.uid,
-                    ['username'] : currentUser.displayName,
-                    ['userUrl'] : currentUser.photoURL
+                    ['uid'] : currentUser.uid
                 });
                 console.log(reel);
             }

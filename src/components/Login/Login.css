@@ -120,3 +120,9 @@
     color: rgb(47, 149, 246);
     font-weight: bold;
 }
+
+@media (max-width: 800px) {
+    .login_page .login_box {
+        width: 90%
+    }
+}

@@ -1,0 +1,95 @@
+.home-post {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    flex-direction: column;
+    width: 50%;
+    border-bottom: 1px solid rgb(38, 38, 38);
+    margin: auto;
+    background-color: black;
+    color: white;
+    padding: 10px 0px 20px 0px;
+}
+
+.home-post .home-post-container {
+    width: 100%;
+    display: inline-flex;
+    justify-content: center;
+    max-height: 500px;
+    margin-bottom: 10px;
+    border: 1px solid rgb(38, 38, 38);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.home-post .home-post-container img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+.user-link {
+    text-decoration: none;
+    color: white;
+}
+
+.user-link:hover {
+    text-decoration: underline;
+}
+
+.home-post .stats {
+    border: none;
+}
+
+.home-post .home-post-comment-btn {
+    background-color: transparent;
+    border: none;
+    color: rgb(88, 88, 88);
+    font-size: 14px;
+    font-weight: 600;
+    padding: 0;
+    cursor: pointer;
+}
+
+.home-post .home-post-comment-btn:hover {
+    text-decoration: underline;
+}
+
+.home-post .home-post-comments {
+    width: 100%;
+    background-color: black;
+}
+
+.home-post .add-your-comment {
+    width: 100%;
+}
+
+.home-post .add-your-comment form {
+    padding: 5px 0px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid gray;
+}
+
+.home-post .add-your-comment form input {
+    outline: none;
+    background-color: transparent;
+    border: none;
+    flex: 1;
+    color: white;
+}
+
+.home-post .add-your-comment img {
+    filter: invert(0.5);
+    height: 20px;
+    cursor: pointer;
+}
+
+.home-post .add-your-comment form button {
+    cursor: pointer;
+    border: none;
+    background-color: rgb(71, 184, 250);
+    padding: 2px 6px;
+    font-weight: bold;
+}

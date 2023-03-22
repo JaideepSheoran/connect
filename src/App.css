@@ -6,4 +6,11 @@
 .my-app .content {
     flex: 1;
     margin-left: 20%;
+    background-color: black;
+}
+
+@media (max-width: 800px) {
+    .my-app .content {
+        margin-left: 50px;
+    }
 }
