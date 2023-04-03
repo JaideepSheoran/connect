@@ -17,9 +17,16 @@ function Register() {
     const [username, setUsername] = useState('');
     const [existsUsername, setExists] = useState(false);
     const [password, setPassword] = useState('');
+    const [picture, setPicture] = useState(null);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const {createUser} = UserAuth();
+
+    const handlePictureChange = (e) => {
+        if (e.target.files[0]) {
+          setPicture(e.target.files[0]);
+        }
+      };
 
     useEffect(() => {
 
@@ -134,12 +141,12 @@ function Register() {
     }
 
     const handleEmailPassLogin = (e) => {
-        if(!email || !password || existsUsername) {
+        if(!email || !password || existsUsername || !picture) {
             alert('Empty Fields or Username Already Present');
             return;
         }
         e.preventDefault();
-        createUser(email, password, username);
+        createUser(email, password, username, picture);
     }
 
     return (
@@ -183,6 +190,8 @@ function Register() {
                             value={password}
                             placeholder='Password' />
 
+                        <input type="file" onChange={handlePictureChange} name="picture" id="" />
+
                         <button
                             className='login-btn'
                             type='submit'
@@ -193,7 +202,7 @@ function Register() {
                 <button onClick={handleLogin}><img src={imgSrc} />Sign in With Google</button>
                 <div className='log-divider'><span>OR</span></div>
                 <div className='login-reg'>
-                    <p>Don't have an account ?</p><Link className='reg-link' to='/register'>Sign up</Link>
+                    <p>Don't have an account ?</p><Link className='reg-link' to='/login'>Log in</Link>
                 </div>
             </div>
         </div>

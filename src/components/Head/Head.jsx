@@ -55,9 +55,9 @@ const Head = ({match}) => {
                         <div className="pro-numdata">
                             <span className='pro-postcnt'>10<span>Posts</span></span>
                             <span className='pro-follower'>{user.followers}<span>Followers</span></span>
-                            <span className='pro-following'>7<span>Following</span></span>
+                            <span className='pro-following'>{user.following}<span>Following</span></span>
                         </div>
-                        <div className="pro-about">Jaideep Singh Sheoran <br /> HR86 - Hisar - Haryana</div>
+                        <div className="pro-about">{user.email}<br /> Don't be too busy making a living that you forgot making a life. </div>
                     </div>
                 </div>
                 <div className="pro-navbar">
@@ -67,7 +67,7 @@ const Head = ({match}) => {
                         </Link>
                         <Link className='linkin' to={`reels`}>
                             <img src={reels} alt="" srcset="" />
-                            <div>REELS</div>
+                            <div>SCROLLS</div>
                         </Link>
                         <Link className='linkin' to={`tagged`}>
                             <img src={tagged} alt="" srcset="" />

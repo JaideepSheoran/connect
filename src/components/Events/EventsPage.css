@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Alkatra&display=swap');
+.event-page {
+    width: 100%;
+    background-color: black;
+    position: relative;
+    font-family: 'Alkatra', cursive;
+}
+
+.event-header {
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+    border-bottom: 1px solid white;
+    padding: 0px 10px;
+    position: sticky;
+    top: 0;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+.event-header p {
+    font-weight: bold;
+}
+
+.event-filter,
+.data-filter {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    flex: 1;
+}
+
+.event-filter p {
+    font-size: 15px;
+    color: rgb(43, 159, 226);
+}
+
+.event-filter input,
+.event-filter select {
+    cursor: pointer;
+    background-color: black;
+    color: white;
+    border: 1px solid white;
+    border-radius: 5px;
+    height: 25px;
+    font-weight: bold;
+    outline: none;
+}
+
+.data-filter {
+    justify-content: center;
+}
+
+.event-side {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.data-filter>* {
+    padding: 0px 5px;
+}
+
+.all-events {
+    width: 90%;
+    margin: auto;
+    /* display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap; */
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+}
+
+.event-creator button {
+    cursor: pointer;
+    background-color: rgb(0, 162, 243);
+    border: none;
+    border-radius: 5px;
+    color: black;
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 25px;
+    font-family: 'Alkatra', cursive;
+}

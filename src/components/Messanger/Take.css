@@ -1,0 +1,15 @@
+.chat-sidebar {
+    overflow-y: scroll;
+    position: relative;
+}
+
+.cbx {
+    width: 100%;
+    position: sticky;
+    top: 0;
+    background-color: black;
+}
+
+.chat-sidebar::-webkit-scrollbar {
+    display: none;
+}

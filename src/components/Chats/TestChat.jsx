@@ -1,8 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { db } from '../../helper/firebase';
-import { collection, onSnapshot, query, where } from 'firebase/firestore';
+import { collection, onSnapshot, orderBy, query, where } from 'firebase/firestore';
 import './Chats.css';
 import messanger from '../../assets/messanger.png';
+import { rtdb } from '../../helper/firebase';
+import { ref, onValue, serverTimestamp, onDisconnect, set } from 'firebase/database';
+
 
 const TestChat = ({chatID, msgs, setMsgs}) => {
     const uid = JSON.parse(window.localStorage.getItem('data')).id_;
@@ -12,17 +15,11 @@ const TestChat = ({chatID, msgs, setMsgs}) => {
         // if(!chatID){
         //     return;
         // }
-        const unsub = onSnapshot(query(collection(db, 'messages'), where('conversation_id', '==', cid)), (snapshot) => {
+        const unsub = onSnapshot(query(collection(db, 'messages'), where('conversation_id', '==', cid), orderBy('timestamp')), (snapshot) => {
             const chats = [];
             snapshot.docs.forEach((shot) => {
                 chats.push(shot.data());
             });
-            chats.sort((a, b) => {
-                if(a.timestamp > b.timestamp){
-                    return 1;
-                }
-                return -1;
-            })
             setMsgs(chats);
         })
 

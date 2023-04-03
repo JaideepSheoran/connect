@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Alkatra&display=swap');
+.event-card {
+    font-family: 'Alkatra', cursive;
+    color: black;
+    background-color: #4158D0;
+    background-image: linear-gradient(135deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    margin: 10px;
+    position: relative;
+    cursor: pointer;
+}
+
+.event-card:hover .event-disc {
+    display: block;
+}
+
+.event-card .event-disc {
+    height: 100%;
+    background-color: #4158D0;
+    background-image: linear-gradient(135deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+    border-radius: 15px;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    display: none;
+}
+
+.event-disc>p {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.event-disc>* {
+    padding-left: 5px;
+}
+
+.event-disc .event-creator {
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.event-disc>span {
+    font-size: 15px;
+}
+
+.expire-time {
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.expire-time p {
+    padding-left: 10px;
+}
+
+.event-card .event-poster {
+    overflow: hidden;
+    border-radius: 15px;
+    width: 100%;
+    height: 200px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.event-card .event-poster img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.event-details {
+    width: 100%;
+    float: right;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+}
+
+.event-details p {
+    cursor: pointer;
+    font-size: 12px;
+    color: rgb(0, 170, 255);
+    text-decoration: underline;
+    margin: 0;
+}
+
+.event-details div {
+    font-size: 14px;
+    font-weight: 500;
+}

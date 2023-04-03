@@ -62,7 +62,11 @@ const Gallary = () => {
 						{
                             isLoaded && newPosts.length == 0 
                             ?
-                                <h1>NO POSTS</h1>
+                            <>
+                                <h1 style={{color : 'white', width : '100%'}}>NO POSTS</h1>
+                                <h1 style={{color : 'white', width : '100%'}}>NO POSTS</h1>
+                                <h1 style={{color : 'white', width : '100%'}}>NO POSTS</h1>
+                            </>
                             :
                                 <div className='loading'>
                                     <img src={hourglass} alt="" />

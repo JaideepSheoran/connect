@@ -6,7 +6,7 @@ import PrivateRoute from './components/PrivateRoute';
 import { useEffect, useState } from 'react';
 import userContext from './context/AuthContext';
 import { onAuthStateChanged } from 'firebase/auth';
-import { authenticate } from './helper/firebase';
+import { authenticate, messaging } from './helper/firebase';
 import SideBar from './components/Sidebar/SideBar';
 import AddPost from './components/Post/AddPost';
 import Post from './components/Post/Post';
@@ -25,33 +25,24 @@ import Protected from './components/Protected';
 import { AuthContextProvider } from './context/AuthContext';
 import Explore from './components/Explore/Explore';
 import Scroll from './components/Reels/Scroll';
-
+import Take from './components/Messanger/Take';
+import { requestForToken } from './helper/cloud-messaging';
+import { onMessage } from 'firebase/messaging';
+import EventsPage from './components/Events/EventsPage';
+import CreateEvent from './components/Events/CreateEvent';
+import Event from './components/Events/Event';
 
 function App() {
-	// const [user, setUser] = useState({});
-	// const [isSignedIn, setIsSignedIn] = useState(false);
 
-	// useEffect(() => {
-	// 	const unsubscribe = onAuthStateChanged(authenticate, (currUser) => {
-	// 		if (!currUser) {
-	// 			return;
-	// 		}
-
-	// 		setUser({
-	// 			id: currUser.uid,
-	// 			username: currUser.displayName,
-	// 			email: currUser.email,
-	// 			photoUrl: currUser.photoURL
-	// 		});
-	// 		setIsSignedIn(true);
-	// 		console.log('Run');
-	// 	});
-
-	// 	return () => unsubscribe();
-	// }, []);
-
-
-	// const value = { user, setUser };
+	useEffect(() => {
+		requestForToken();
+		const unsub = onMessage(messaging, (payload) => {
+			console.log('NOTIFICATION : ', payload);
+		});
+		return () => {
+			unsub();
+		}
+	}, []);
 
 	return (
 		<Router>
@@ -63,26 +54,17 @@ function App() {
 							<Route path="login" element={<Login />} />
 							<Route path="register" element={<Register />} />
 
-							{/* <Route path='/' element={<Protected />}>
-								<Route path='/' element={<Home />} />
-								<Route path='/profile/*' element={<Head />} />
-								<Route path='/chats' element={<Chats />} />
-								<Route path='/addpost' element={<Create />} />
-								<Route path='/explore' element={<Gallary />} />
-								<Route path='/saved' element={<Test />} />
-								<Route path='/post/:pid' element={<Post />} />
-								<Route path='/user/:uid' element={<Profile />} />
-							</Route> */}
-
 							<Route exact path='/' element={<Protected><Home/></Protected>}/>
 							<Route path='/profile/*' element={<Protected><Head/></Protected>}/>
-							<Route exact path='/chats' element={<Protected><Chats/></Protected>}/>
+							<Route exact path='/chats' element={<Protected><Take/></Protected>}/>
 							<Route exact path='/addpost' element={<Protected><Create/></Protected>}/>
 							<Route exact path='/explore' element={<Protected><Explore/></Protected>}/>
-							<Route exact path='/saved' element={<Protected><Test/></Protected>}/>
+							<Route exact path='/saved' element={<Protected><EventsPage/></Protected>}/>
 							<Route exact path='/reels' element={<Protected><Scroll/></Protected>}/>
+							<Route exact path='/eventcreate' element={<Protected><CreateEvent/></Protected>}/>
 							<Route path='/post/:pid' element={<Protected><Post/></Protected>}/>
 							<Route path='/user/:uid' element={<Protected><Profile/></Protected>}/>
+							<Route path='/event/:eid' element={<Protected><Event/></Protected>}/>
 							
 						</Routes>
 					</div>

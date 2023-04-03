@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Alkatra&display=swap');
 .create-content {
     height: 100vh;
+    font-family: 'Alkatra', cursive;
 }
 
 .create-content>button {

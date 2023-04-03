@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Alkatra&display=swap');
 .fromfile {
     display: flex;
     align-items: center;
@@ -26,6 +27,7 @@
 }
 
 .fromfile .formgroup input {
+    font-family: 'Alkatra', cursive;
     line-height: 25px;
     border: none;
     background-color: black;
@@ -49,6 +51,7 @@
     font-weight: bold;
     margin: 2px;
     border-radius: 5px;
+    font-family: 'Alkatra', cursive;
 }
 
 .fromfile .thumbnails-container {
@@ -86,17 +89,21 @@
     outline: none;
     color: white;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Alkatra', cursive;
+    font-size: 15px;
 }
 
 .reel-data input {
     width: 100%;
     border: 1px solid gray;
     line-height: 20px;
+    font-family: 'Alkatra', cursive;
 }
 
 .reel-data button {
     width: 100%;
     margin-top: 30px;
+    font-family: 'Alkatra', cursive;
 }
 
 .reel-data button:hover {

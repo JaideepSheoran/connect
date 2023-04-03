@@ -7,6 +7,7 @@ import { collection, getDocs, query, where } from 'firebase/firestore';
 const Scroll = () => {
 
     const [reels, setReels] = useState([]);
+    const [isLiked, setIsLiked] = useState('');
 
     useEffect(() => {
         const q = query(collection(db, 'posts'), where('type', '==', 'video'));
@@ -21,6 +22,7 @@ const Scroll = () => {
             console.log(err);
         })
     }, []);
+
 
 
     return (

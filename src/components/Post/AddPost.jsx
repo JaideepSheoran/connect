@@ -136,11 +136,11 @@ function AddPost() {
                         </div>
                         <div className="post-caption">
                             <p>Caption</p>
-                            <textarea placeholder='Add caption ...' onChange={handleChange} value={post.caption} name="caption" id="" cols="30" rows="10"></textarea>
+                            <textarea placeholder='Add caption ...' onChange={handleChange} value={post.caption} name="caption" id="" cols="33" rows="6"></textarea>
                         </div>
                         <div className="posttags">
                             <p>Add Tags</p>
-                            <textarea placeholder='Add Tags ...' onChange={(e) => { setTags(e.target.value) }} value={tags} name="tags" id="" cols="30" rows="10"></textarea>
+                            <textarea placeholder='Add Tags ...' onChange={(e) => { setTags(e.target.value) }} value={tags} name="tags" id="" cols="33" rows="6"></textarea>
                         </div>
                         <div className="post-location">
                             <p>Add Location</p>
