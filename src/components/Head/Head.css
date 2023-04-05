@@ -13,6 +13,14 @@
     top: 0;
 }
 
+.pro-posts {
+    justify-content: baseline;
+    flex-direction: column;
+    align-items: center;
+    display: flex;
+    min-height: 70vh;
+}
+
 .pro-details {
     display: flex;
     align-items: center;
@@ -20,9 +28,18 @@
     padding: 20px 0px;
 }
 
-.pro-details .pro-pic img {
-    height: 150px;
+.pro-details .pro-pic {
+    display: grid;
+    aspect-ratio: 1 / 1;
+    max-height: 150px;
     border-radius: 50%;
+    overflow: hidden;
+}
+
+.pro-details .pro-pic img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
 }
 
 .pro-details .pro-data .pro-name {
@@ -44,8 +61,9 @@
     padding: 5px 10px;
 }
 
-.pro-details .pro-data .pro-numdata {
-    margin: 10px 0px;
+.pro-data {
+    display: grid;
+    aspect-ratio: 4 / 1;
 }
 
 .pro-details .pro-data .pro-numdata span {

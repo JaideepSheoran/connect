@@ -93,3 +93,11 @@
     padding: 2px 6px;
     font-weight: bold;
 }
+
+.stats .dm-btn {
+    border: none;
+    background-color: rgb(20, 151, 203);
+    border-radius: 3px;
+    font-weight: 600;
+    margin: 0px 10px;
+}

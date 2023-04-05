@@ -3,7 +3,7 @@ import { GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword, signOu
 import './Login.css';
 import { authenticate, db } from '../../helper/firebase';
 import { Link, useNavigate } from 'react-router-dom';
-import {doLogin} from '../../auth';
+import { doLogin } from '../../auth';
 import './Login.css';
 import imgSrc from "../../assets/logo-google.png";
 import connect from '../../assets/connect.png'
@@ -16,35 +16,58 @@ function Register() {
     const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
     const [existsUsername, setExists] = useState(false);
-    const [password, setPassword] = useState('');
     const [picture, setPicture] = useState(null);
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const {createUser} = UserAuth();
+
+    const { createUser } = UserAuth();
+
+    const [newUser, setNewUser] = useState({
+        email: '',
+        username: '',
+        password: '',
+        photoUrl: '',
+        college: '',
+        type: '',
+        followers: '',
+        following: ''
+    });
 
     const handlePictureChange = (e) => {
         if (e.target.files[0]) {
-          setPicture(e.target.files[0]);
+            setPicture(e.target.files[0]);
         }
-      };
+    };
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+
+        console.log(value);
+
+        setNewUser({
+            ...newUser,
+            [name]: value.toLowerCase(),
+        });
+
+    };
 
     useEffect(() => {
 
-        if(username.length < 6) {
+        if (username.length < 6) {
             setExists(true);
             return;
         }
 
         const q = query(collection(db, 'users'), where('username', '==', username));
-    
+
         getDocs(q).then((snapshot) => {
-            if(snapshot.docs.length != 0){
+            if (snapshot.docs.length != 0) {
                 setExists(true);
-            }else{
+            } else {
                 setExists(false);
             }
         }).catch(err => console.log(err))
-        
+
     }, [username]);
 
     useEffect(() => {
@@ -62,12 +85,12 @@ function Register() {
                     const auth = getAuth();
                     console.log(auth.currentUser);
                     updatePassword(auth.currentUser, mypassword)
-                    .then((usercred) => {
-                        const User = usercred.user;
-                        console.log("Account linking success", User);
-                    }).catch((error) => {
-                        console.log("Account linking error", error);
-                    });
+                        .then((usercred) => {
+                            const User = usercred.user;
+                            console.log("Account linking success", User);
+                        }).catch((error) => {
+                            console.log("Account linking error", error);
+                        });
                 })
                 .catch((error) => {
                     const errorCode = error.code;
@@ -91,19 +114,19 @@ function Register() {
                     console.log("login detail is saved to localstorage");
 
                     getDoc(doc(db, 'users', creds.user.uid)).then((rdata) => {
-                        if(!rdata.exists){
+                        if (!rdata.exists) {
                             setDoc(doc(db, 'users', creds.user.uid), {
-                                email : creds.user.email,
-                                username : creds.user.displayName,
-                                followers : 0,
-                                following : 0,
-                                photoUrl : creds.user.photoURL
+                                email: creds.user.email,
+                                username: creds.user.displayName,
+                                followers: 0,
+                                following: 0,
+                                photoUrl: creds.user.photoURL
                             }).then(() => {
                                 window.alert('Account Created Successfully.')
                             }).catch((e) => {
                                 window.alert(`${e}`);
                             })
-                        }else{
+                        } else {
                             dispatch({
                                 type: 'SET_USER',
                                 payload: { ...rdata.data(), id: creds.user.uid }
@@ -141,12 +164,12 @@ function Register() {
     }
 
     const handleEmailPassLogin = (e) => {
-        if(!email || !password || existsUsername || !picture) {
+        if (!newUser.email || !newUser.password || existsUsername || !picture) {
             alert('Empty Fields or Username Already Present');
             return;
         }
         e.preventDefault();
-        createUser(email, password, username, picture);
+        createUser(newUser, picture);
     }
 
     return (
@@ -158,39 +181,58 @@ function Register() {
                 <div className='login-ep'>
                     <form onSubmit={handleEmailPassLogin}>
 
-                        <input
-                            onChange={(e) => {
-                                setEmail(e.target.value.toLowerCase());
-                            }}
-                            className='login-cred'
-                            value={email}
-                            type="email"
-                            placeholder='Email' />
-
 
                         <input
                             onChange={(e) => {
                                 setUsername(e.target.value.toLowerCase());
+                                handleInputChange(e)
                             }}
                             style={{
-                                border : `2px solid ${existsUsername ? '#f50f0f' : '#16f50f'}`
+                                border: `2px solid ${existsUsername ? '#f50f0f' : '#16f50f'}`
                             }}
                             className='login-cred'
-                            value={username}
+                            value={newUser.username}
                             type="text"
-                            placeholder='Username' />          
+                            name='username'
+                            placeholder='Username' />
+
+                        <input
+                            onChange={handleInputChange}
+                            className='login-cred'
+                            value={newUser.email}
+                            type="email"
+                            name='email'
+                            placeholder='Email' />
 
 
                         <input
-                            onChange={(e) => {
-                                setPassword(e.target.value.toLowerCase());
-                            }}
+                            onChange={handleInputChange}
                             className='login-cred'
                             type="password"
-                            value={password}
+                            value={newUser.password}
+                            name='password'
                             placeholder='Password' />
 
-                        <input type="file" onChange={handlePictureChange} name="picture" id="" />
+                        <select value={newUser.college} onChange={handleInputChange} name="college" id="clg" className='login-cred'>
+                            <option value="">Select a College</option>
+                            <option value="nitkkr">NIT, Kurukshetra</option>
+                            <option value="nitdelhi">NIT, Delhi</option>
+                            <option value="iitdelhi">IIT, Delhi</option>
+                            <option value="iitbombay">IIT, Bombay</option>
+                            <option value="yale">Yale University, NewYork</option>
+                            <option value="dtu">Delhi Technical University, Delhi</option>
+                        </select>
+
+
+                        <select value={newUser.type} onChange={handleInputChange} name="type" id="typ" className='login-cred'>
+                            <option value="">Select a Account Type</option>
+                            <option value="student">Student</option>
+                            <option value="college">College/University</option>
+                            <option value="club">Club</option>
+                        </select>
+
+
+                        <input type="file" onChange={handlePictureChange} name="picture" id="pc" />
 
                         <button
                             className='login-btn'

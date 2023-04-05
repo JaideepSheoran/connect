@@ -19,6 +19,7 @@ const Head = ({match}) => {
     const userData = JSON.parse(window.localStorage.getItem('data'));
     const user = useSelector((state) => state.getUser);
     const [isFollowing, setFollowing] = useState(false);
+    const [postCnt, setPostCnt] = useState(0);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -53,7 +54,7 @@ const Head = ({match}) => {
                             <button>Edit Profile</button>
                         </div>
                         <div className="pro-numdata">
-                            <span className='pro-postcnt'>10<span>Posts</span></span>
+                            <span className='pro-postcnt'>{postCnt}<span>Posts</span></span>
                             <span className='pro-follower'>{user.followers}<span>Followers</span></span>
                             <span className='pro-following'>{user.following}<span>Following</span></span>
                         </div>
@@ -77,7 +78,7 @@ const Head = ({match}) => {
             </div>
             <div className='pro-posts'>
                 <Routes>
-                    <Route path={``} element={<Gallary />}/>
+                    <Route path={``} element={<Gallary setPostCnt={setPostCnt} />}/>
                     <Route path={`reels`} element={<Reels />}/>
                 </Routes>
             </div>

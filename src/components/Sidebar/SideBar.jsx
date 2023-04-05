@@ -62,9 +62,9 @@ function SideBar() {
 				</div>
 				<Link style={{ textDecoration: 'none', color: 'white' }} to="/"><SideBarItem logoSrc={home} logoType="Home" /></Link>
 				<Link style={{ textDecoration: 'none', color: 'white' }} to="/explore"><SideBarItem logoSrc={hash} logoType="Explore" /></Link>
-				{/* <Link style={{ textDecoration: 'none', color: 'white' }} to="/notification"><SideBarItem logoSrc={notification} logoType="Notifications" /></Link> */}
+				<Link style={{ textDecoration: 'none', color: 'white' }} to="/lostnfound"><SideBarItem logoSrc={notification} logoType="Lost & Found" /></Link>
 				<Link style={{ textDecoration: 'none', color: 'white' }} to="/chats"><SideBarItem logoSrc={message} logoType="Messages" /></Link>
-				<Link style={{ textDecoration: 'none', color: 'white' }} to="/saved"><SideBarItem logoSrc={bookmark} logoType="Saved" /></Link>
+				<Link style={{ textDecoration: 'none', color: 'white' }} to="/saved"><SideBarItem logoSrc={bookmark} logoType="Events" /></Link>
 				<Link style={{ textDecoration: 'none', color: 'white' }} to="/reels"><SideBarItem logoSrc={reels} logoType="Scrolls" /></Link>
 				<Link style={{ textDecoration: 'none', color: 'white' }} to="/addpost"><SideBarItem logoSrc={plus} logoType="Create" /></Link>
 				<Link style={{ textDecoration: 'none', color: 'white' }} to="/profile"><SideBarItem logoSrc={profile} logoType="Profile" /></Link>
@@ -73,8 +73,10 @@ function SideBar() {
 				{
 					userData &&
 					<>
-						<img className='ppic' src={userData.photoURL ? userData.photoURL : defaultUser } alt="" />
-						<input
+						<div className='ppic'>
+							<img src={userData.photoURL ? userData.photoURL : defaultUser } alt="" />
+						</div>
+						{/* <input
 
 							onChange={(e) => {
 								setPicture(e.target.files[0]);
@@ -93,7 +95,7 @@ function SideBar() {
 								return;
 							}
 							updateProfilePicture(picture);
-						}}>Update</button>
+						}}>Update</button> */}
 						<div className="profile-info">
 							<div className="account-details">
 								<div className='disp-name'>{userData.displayName}</div>

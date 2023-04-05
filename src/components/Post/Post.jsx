@@ -33,13 +33,17 @@ const Post = () => {
     useEffect(() => {
         console.log(pid);
         const unsubscribe = onSnapshot(doc(db, 'posts', pid), (snapshot) => {
-            setCurr({ ...snapshot.data(), postID: snapshot.id });
+            getDoc(doc(db, 'users', snapshot.data().uid)).then((document) => {
+                const {username , photoUrl} = document.data();
+                setCurr({ ...snapshot.data(), postID: snapshot.id, username : username, photoURL : photoUrl });
+            }).catch(err => console.log(err));
         }, (err) => {
             console.log(err);
         });
 
         return () => unsubscribe();
     }, []);
+
 
     useEffect(() => {
         console.log(pid);
@@ -133,7 +137,7 @@ const Post = () => {
                         <div className="post-info">
                             <div className="top">
                                 <div>
-                                    <div className="pic"><img src={JSON.parse(window.localStorage.getItem('data')).photoURL} alt="Profile" /></div>
+                                    <div className="pic"><img src={curr.photoURL} alt="Profile" /></div>
                                     <div className="user-data">
                                         <div className="user">{curr.username}</div>
                                         <div className="location">{new Date(curr.timestamp).toDateString() + " " + curr.location}</div>
@@ -142,7 +146,7 @@ const Post = () => {
                                 <div><button onClick={() => { nav(-1) }}><img src={close} alt="More" /></button></div>
                             </div>
                             <div className="post-details">
-                                <div className="pic"><img src={JSON.parse(window.localStorage.getItem('data')).photoURL} alt="Profile" /></div>
+                                <div className="pic"><img src={curr.photoURL} alt="Profile" /></div>
                                 <div className="user-data">
                                     <div className="user">
                                         {curr.username}

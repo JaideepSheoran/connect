@@ -31,6 +31,7 @@ import { onMessage } from 'firebase/messaging';
 import EventsPage from './components/Events/EventsPage';
 import CreateEvent from './components/Events/CreateEvent';
 import Event from './components/Events/Event';
+import DirectChat from './components/Messanger/DirectChat';
 
 function App() {
 
@@ -60,11 +61,13 @@ function App() {
 							<Route exact path='/addpost' element={<Protected><Create/></Protected>}/>
 							<Route exact path='/explore' element={<Protected><Explore/></Protected>}/>
 							<Route exact path='/saved' element={<Protected><EventsPage/></Protected>}/>
+							<Route exact path='/lostnfound' element={<Protected><EventsPage/></Protected>}/>
 							<Route exact path='/reels' element={<Protected><Scroll/></Protected>}/>
 							<Route exact path='/eventcreate' element={<Protected><CreateEvent/></Protected>}/>
 							<Route path='/post/:pid' element={<Protected><Post/></Protected>}/>
 							<Route path='/user/:uid' element={<Protected><Profile/></Protected>}/>
 							<Route path='/event/:eid' element={<Protected><Event/></Protected>}/>
+							<Route path='/directmsg/:cid' element={<Protected><DirectChat/></Protected>}/>
 							
 						</Routes>
 					</div>

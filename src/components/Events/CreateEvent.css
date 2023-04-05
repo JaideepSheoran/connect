@@ -29,6 +29,7 @@
     font-weight: 500;
     border-radius: 5px;
     outline: none;
+    font-family: 'Alkatra', cursive;
 }
 
 .ck-editor__editable_inline {

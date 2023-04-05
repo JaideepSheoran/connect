@@ -5,12 +5,13 @@ import commentlogo from '../../assets/comment.png';
 import closeicon from '../../assets/closeicon.png';
 import bookmark from '../../assets/bookmark.png';
 import Commentr from '../Comments/Commentr';
-import { setDoc, getDoc, collection, where, query, doc, getDocs, serverTimestamp } from 'firebase/firestore';
+import { setDoc, getDoc, collection, where, query, doc, getDocs, serverTimestamp, orderBy } from 'firebase/firestore';
 import { db } from '../../helper/firebase';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const HomePost = ({ photoURL, post }) => {
 
+    const nav = useNavigate();
     const [comments, setComments] = useState([]);
     const [parentId, setParentId] = useState(null);
     const [replyerId, setReplyerId] = useState(null);
@@ -21,7 +22,7 @@ const HomePost = ({ photoURL, post }) => {
 
 
     const refreshComments = async () => {
-        const commentsQuery = query(collection(db, "mycomments"), where('pid', '==', post.id));
+        const commentsQuery = query(collection(db, "mycomments"), where('pid', '==', post.id), orderBy('timestamp', 'desc'));
         getDocs(commentsQuery).then(async (snapshot) => {
             const res = await Promise.all(snapshot.docs.map(async (commentSnap) => {
                 const data = commentSnap.data();
@@ -36,14 +37,6 @@ const HomePost = ({ photoURL, post }) => {
                     username: r.data().username
                 };
             }));
-            console.log("RESULT : ", res);
-            res.sort((a, b) => {
-                let comparison = 0;
-                if (a.timestamp < b.timestamp) {
-                    return 1;
-                }
-                return -1;
-            })
             setComments(res);
         }).catch((err) => {
             console.log(err);
@@ -89,6 +82,10 @@ const HomePost = ({ photoURL, post }) => {
         );
     };
 
+    const moveToDirectChat = (msger) => {
+        nav(`/directmsg/${msger}`);
+    }
+
     const handleCommentSubmit = (event) => {
         event.preventDefault();
 
@@ -131,18 +128,18 @@ const HomePost = ({ photoURL, post }) => {
             <div onClick={handleReelPlay} className="home-post-container">
                 {
                     post.type !== 'video'
-                    ?
+                        ?
                         <img src={photoURL} alt="" />
-                    :
-                    <>
-                        {
-                            videoShow
-                            ? 
-                                <video autoPlay={true} src={post.postUrl}></video>
-                            :
-                                <img src={photoURL} alt="" />
-                        }
-                    </>
+                        :
+                        <>
+                            {
+                                videoShow
+                                    ?
+                                    <video autoPlay={true} src={post.postUrl}></video>
+                                    :
+                                    <img src={photoURL} alt="" />
+                            }
+                        </>
                 }
             </div>
             <div className="stats">
@@ -160,7 +157,10 @@ const HomePost = ({ photoURL, post }) => {
                     Liked by <span>naresh_kumar and 53453 others</span>
                 </div>
             </div>
-            <button className='home-post-comment-btn' onClick={refreshComments}>View all comments</button>
+            <div className='stats'>
+                <button className='home-post-comment-btn' onClick={refreshComments}>View all comments</button>
+                <button className='dm-btn' onClick={(e) => {e.preventDefault(); moveToDirectChat(post.uid)}}>Direct Message</button>
+            </div>
             <div className='home-post-comments post-comments'>
                 <ul>
                     {

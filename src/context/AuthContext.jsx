@@ -24,9 +24,9 @@ export const AuthContextProvider = ({ children }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const createUser = (email, password, username, picture) => {
-        const EMAIL = email.toLowerCase();
-        const PASSWORD = password.toLowerCase();
+    const createUser = (newUser, picture) => {
+        const EMAIL = newUser.email.toLowerCase();
+        const PASSWORD = newUser.password.toLowerCase();
         const STORAGE_REF = ref(storage, `/${uuid()}/${picture.name}`);
         const uploadTask = uploadBytesResumable(STORAGE_REF, picture);
 
@@ -51,14 +51,16 @@ export const AuthContextProvider = ({ children }) => {
                     createUserWithEmailAndPassword(authenticate, EMAIL, PASSWORD).then((creds) => {
                         updateProfile(creds.user, {
                             photoURL: downloadURL,
-                            displayName: username
+                            displayName: newUser.username
                         }).then(() => {
                             setDoc(doc(db, 'users', creds.user.uid), {
                                 email: creds.user.email,
                                 followers: 0,
                                 following: 0,
                                 photoUrl: downloadURL,
-                                username: username
+                                username: newUser.username,
+                                college : newUser.college,
+                                type : newUser.type
                             }).then(() => {
                                 window.alert('Created');
                             }).catch(err => console.log(err));
@@ -99,7 +101,7 @@ export const AuthContextProvider = ({ children }) => {
                         updateDoc(doc(db, 'users', authenticate.currentUser.uid), {
                             photoUrl: downloadURL
                         }).then(() => {
-                            window.alert('Created');
+                            console.log('Updated');
                         }).catch(err => console.log(err));
                     }).catch((err) => console.log(err));
                 });

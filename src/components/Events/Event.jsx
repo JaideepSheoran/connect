@@ -16,24 +16,17 @@ const Event = () => {
 
     useEffect(() => {
         getDoc(doc(db, 'events', eid)).then((document) => {
-            setEvent({id : document.id, ...document.data()});
-        }).catch((err) => {console.log(err);});
+            setEvent({ id: document.id, ...document.data() });
+        }).catch((err) => { console.log(err); });
     }, []);
 
 
     return (
         event != null
             ?
-            <div className="post-main-box">
-                <div className="post-container">
-                    <div className="post">
-                        <div className="img-box">
-                            <div className="img-box-cont">
-                                {
-                                    <img src={event.poster} alt="Post" />
-                                }
-                            </div>
-                        </div>
+            <div className="event-main-box">
+                <div className="event-container">
+                    <div className="event-align">
                         <div className="post-info">
                             <div className="top">
                                 <div>
@@ -43,7 +36,7 @@ const Event = () => {
                                         <div className="location">{new Date(event.startDate).toDateString() + " " + event.college}</div>
                                     </div>
                                 </div>
-                                <div><button onClick={() => { nav(-1) }}><img style={{filter : 'invert(1)', rotate : '180deg'}} src={next} /></button></div>
+                                <div><button onClick={() => { nav(-1) }}><img style={{ filter: 'invert(1)', rotate: '180deg' }} src={next} /></button></div>
                             </div>
                             <div className="post-details">
                                 <div className="pic"><img src={JSON.parse(window.localStorage.getItem('data')).photoURL} alt="Profile" /></div>
@@ -55,10 +48,18 @@ const Event = () => {
                                     <div className="location">{event.endDate}</div>
                                 </div>
                             </div>
+                        </div>
+                        <div className="img-box">
+                            <div className="poster-box-cont">
+                                {
+                                    <img src={event.poster} alt="Post" />
+                                }
+                            </div>
+                        </div>
+                        <div className="post-info">
+                            <div dangerouslySetInnerHTML={{ __html: event.content }} className="event-data"></div>
                             <p className='p-head'>Ask Doubt via Comments</p>
-                            <div dangerouslySetInnerHTML={{__html : event.content}} className="event-data"></div>
                             <div className="comments">
-                                {/* <Comments postID={curr.postID} /> */}
                                 <Commentr pid={event.id} />
                             </div>
                         </div>

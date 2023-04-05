@@ -9,7 +9,7 @@ import {setUserPosts} from "../../actions/index"
 import GallaryItem from './GallaryItem';
 import hourglass from '../../assets/hourglass.gif';
 
-const Gallary = () => {
+const Gallary = ({setPostCnt}) => {
 
 
     const userID = JSON.parse(window.localStorage.getItem('data')).id_;
@@ -27,6 +27,7 @@ const Gallary = () => {
                 res.docs.forEach((doc) => {
                     list.push({id : doc.id, ...doc.data()});
                 });
+                setPostCnt(res.docs.length);
                 dispatch(setUserPosts(list));
                 setLoaded(true);
             }, (err) => {
@@ -46,7 +47,6 @@ const Gallary = () => {
 
 
     return (
-        <div className='profile-gallary'>
             <div className='gallary'>
             {
 				newPosts.length > 0 ?
@@ -75,7 +75,6 @@ const Gallary = () => {
 					</>
 			}
             </div>
-        </div>
     )
 }
 

@@ -13,7 +13,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    height: 60vh;
+    height: 70vh;
     background-color: white;
     border-radius: 10px;
     text-align: center;
@@ -52,7 +52,8 @@
     align-items: center;
 }
 
-.login_box .login-ep form input {
+.login_box .login-ep form input,
+.login_box .login-ep form select {
     width: 80%;
     line-height: 30px;
     font-size: 14px;
@@ -64,6 +65,10 @@
     border-radius: 3px;
     padding: 3px;
     margin: 3px;
+}
+
+.login_box .login-ep form select {
+    padding: 10px 5px 10px 5px;
 }
 
 .login_box .login-ep form .login-btn {
